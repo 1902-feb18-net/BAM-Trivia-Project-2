@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Project2.Models;
+using BAMTriviaProject2.Models;
 
-namespace Project2.Controllers
+namespace BAMTriviaProject2.Controllers
 {
     public class HomeController : Controller
     {

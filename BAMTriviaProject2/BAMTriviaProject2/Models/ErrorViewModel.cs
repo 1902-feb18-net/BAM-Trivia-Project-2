@@ -1,6 +1,6 @@
 using System;
 
-namespace Project2.Models
+namespace BAMTriviaProject2.Models
 {
     public class ErrorViewModel
     {

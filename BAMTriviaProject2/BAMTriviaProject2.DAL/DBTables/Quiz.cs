@@ -8,6 +8,7 @@ namespace BAMTriviaProject2.DAL
         public Quiz()
         {
             QuizResults = new HashSet<QuizResults>();
+            UserQuizzes = new HashSet<UserQuizzes>();
         }
 
         public int QuizId { get; set; }
@@ -15,5 +16,6 @@ namespace BAMTriviaProject2.DAL
         public int QuizDifficulty { get; set; }
 
         public virtual ICollection<QuizResults> QuizResults { get; set; }
+        public virtual ICollection<UserQuizzes> UserQuizzes { get; set; }
     }
 }

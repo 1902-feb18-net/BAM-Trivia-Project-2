@@ -11,6 +11,7 @@ namespace BAMTriviaProject2.DAL
         public int QuizActualScore { get; set; }
         public DateTime QuizDate { get; set; }
 
+        public virtual Quiz Quiz { get; set; }
         public virtual Tusers User { get; set; }
     }
 }

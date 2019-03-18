@@ -6,5 +6,8 @@ namespace BLL.Library.IRepositories
 {
     public interface IQuizResultsRepo
     {
+        void GetAnswersByQuizId(int QId);
+
+        void GetAnswersByQuizAndQuestionId(int QId, int QuestionId);
     }
 }

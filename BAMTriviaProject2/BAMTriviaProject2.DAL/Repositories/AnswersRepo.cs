@@ -7,5 +7,9 @@ namespace BAMTriviaProject2.DAL.Repositories
 {
     public class AnswersRepo : IAnswersRepo
     {
+        public void GetAnswerByQuestion(int questionId)
+        {
+
+        }
     }
 }

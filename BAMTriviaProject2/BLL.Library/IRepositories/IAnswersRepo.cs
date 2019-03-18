@@ -6,5 +6,6 @@ namespace BLL.Library.IRepositories
 {
     public interface IAnswersRepo
     {
+        void GetAnswerByQuestion(int questionId);
     }
 }

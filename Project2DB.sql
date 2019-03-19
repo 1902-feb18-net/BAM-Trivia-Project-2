@@ -34,8 +34,13 @@ CREATE TABLE TP2.Questions (
 	QCategory NVARCHAR(100) NOT NULL,
 	QType NVARCHAR(100) NOT NULL DEFAULT('Multiple'),
 	QRating INT NOT NULL DEFAULT(1),
-	QAverageReview DECIMAL(6,2) DEFAULT(0)
+	QAverageReview DECIMAL(6,2) DEFAULT(0),
+	QString NVARCHAR(300) NOT NULL
 )
+
+-- add new col QString to the table
+-- ALTER TABLE TP2.Questions ADD QString NVARCHAR(300) NOT NULL 
+-- Select * from TP2.Questions
 
 -- Answers Table
 CREATE TABLE TP2.Answers (

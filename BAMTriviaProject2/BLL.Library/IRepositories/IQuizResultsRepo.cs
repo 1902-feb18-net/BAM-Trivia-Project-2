@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,8 @@ namespace BLL.Library.IRepositories
 {
     public interface IQuizResultsRepo
     {
-        void GetAnswersByQuizId(int QId);
+        List<AnswerModel> GetAnswersByQuizId(int QId);
 
-        void GetAnswersByQuizAndQuestionId(int QId, int QuestionId);
+        List<AnswerModel> GetAnswersByQuizAndQuestionId(int QId, int QuestionId);
     }
 }

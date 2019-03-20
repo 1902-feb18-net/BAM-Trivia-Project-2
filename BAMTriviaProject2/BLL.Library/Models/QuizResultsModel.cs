@@ -6,5 +6,8 @@ namespace BLL.Library.Models
 {
     public class QuizResultsModel
     {
+        public int QuizId { get; set; }
+        public int Qid { get; set; }
+        public bool Correct { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace BLL.Library.IRepositories
     {
         UsersModel GetUserById(int id);
 
-        List<UsersModel GetAllUsers();
+        List<UsersModel> GetAllUsers();
     }
 }

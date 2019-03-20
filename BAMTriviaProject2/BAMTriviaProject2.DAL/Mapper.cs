@@ -29,22 +29,36 @@ namespace BAMTriviaProject2.DAL
 
         public static Answers Map(AnswerModel answers) => new Answers
         {
-
+            Aid = answers.Id,
+            Qid = answers.QuestionId,
+            Correct = answers.Correct,
+            Aanswer = answers.Answer,
         };
 
         public static AnswerModel Map(Answers answers) => new AnswerModel
         {
-
+            Id = answers.Aid,
+            QuestionId = answers.Qid,
+            Correct = answers.Correct,
+            Answer = answers.Aanswer
         };
 
         public static Questions Map(QuestionsModel answers) => new Questions
         {
-
+            Qid = answers.Id,
+            Qcategory = answers.Category,
+            QaverageReview = answers.AverageReview,
+            Qrating = answers.Rating,
+            Qtype = answers.Type,
         };
 
         public static QuestionsModel Map(Questions answers) => new QuestionsModel
         {
-
+            Id = answers.Qid,
+            Category = answers.Qcategory,
+            AverageReview = answers.QaverageReview,
+            Rating = answers.Qrating,
+            Type = answers.Qtype
         };
 
         public static Quiz Map(QuizesModel answers) => new Quiz

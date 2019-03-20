@@ -1,0 +1,150 @@
+Question Types
+Multiple Choice
+Fill in the blank
+Select List, which is multiple choice
+True/False
+
+1.
+Question: What is the largest brewery in the US?
+
+Answer:
+	Right: Anheuser-Busch
+	Wrong: Boston Beer
+	Wrong: MillerCoors
+	Wrong: Pabst Brewing
+
+2.
+Question: The oldest known recipe is for beer.
+
+Answer:
+True/False, Right answer is true
+
+3.
+Question: Root beer has real beer in it
+
+Answer:
+True/False
+
+4.
+Question: What is the most common brewing ingredient as a starch source?
+
+Answer:
+Right: Barley
+Wrong: Hops
+Wrong: Sorghum
+Wrong: Wheat
+
+
+5.
+Question: Is IPA top or bottom fermented?
+
+
+Answer: Top fermented.
+
+6.
+Question: What kind of beer is bottom fermented?
+
+Answer: Lager
+
+
+7.
+Question: Where What coujntry did Lagers initially evolve?
+
+
+Answer: Bavaria
+
+
+
+8.
+Question: Which beer from this list has the highest alcohol content by volume?
+
+Answer:
+Right Brewmeister Snake Venom
+Wrong Schorschbrau Schorschbock
+Wrong BrewDog Sing The Bismarck
+Wrong Struise Black Damnation VI, Messy
+
+9.
+Question: Is Michelob Ultra a dark beer?
+
+Answer:
+True/False, Right is False
+
+10.
+Question: What kind of beer is Guinness?
+
+Answer:
+Right: Stout
+Wrong: Ale
+Wrong: Lager
+Wrong: Porter
+
+
+11.
+Question: What year was St. James's Gate Brewery founded?
+
+Answer: 1759
+
+
+12.
+Question: What year was Anheuser-Busch founded?
+
+Answer: 1852
+
+13.
+Question: Which country produces the most hops in the world?
+
+Answer:
+Right: Germany
+Wrong: United States
+Wrong: China
+Wrong: United Kingdom
+
+14.
+Question: Everyone drank beer in the Middle Ages in England?
+
+Answer:
+True/False, correct is True
+
+15.
+Question: Which beer on this list has the most IBUs (hoppiest)?
+
+Answer:
+Right: Arbor FF #13 - 2012 Double Black IPA
+Wrong: Mikkeller X Hop Juice 2007 
+Wrong: Zaftig Shadowed Mistress ESBlack
+Wrong: Invicta
+
+
+16.
+Question: Which country was the first to brew beer?
+
+Answer:
+Right: Mesopotamia
+Wrong: Egypt
+Wrong: China
+Wrong: Persia
+
+17.
+Question: Which country drinks the most beer per capita?
+
+Answer:
+Right: Czech Republic
+Wrong: Namibia
+Wrong: Austria
+Wrong: Germany
+
+18.
+Question: What causes the fermentation process in beer?
+
+Answer: Yeast
+
+19.
+Question: What generally gives beer its sweer tase?
+
+Answer: malt
+
+20.
+Question: What is the main ingredient of root beer?
+
+Answer: Sassafras

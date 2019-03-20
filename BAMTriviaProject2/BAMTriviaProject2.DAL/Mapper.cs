@@ -32,7 +32,7 @@ namespace BAMTriviaProject2.DAL
             Aid = answers.Id,
             Qid = answers.QuestionId,
             Correct = answers.Correct,
-            Aanswer = answers.Answer,
+            Aanswer = answers.Answer
         };
 
         public static AnswerModel Map(Answers answers) => new AnswerModel
@@ -43,42 +43,50 @@ namespace BAMTriviaProject2.DAL
             Answer = answers.Aanswer
         };
 
-        public static Questions Map(QuestionsModel answers) => new Questions
+        public static Questions Map(QuestionsModel questions) => new Questions
         {
-            Qid = answers.Id,
-            Qcategory = answers.Category,
-            QaverageReview = answers.AverageReview,
-            Qrating = answers.Rating,
-            Qtype = answers.Type,
+            Qid = questions.Id,
+            Qcategory = questions.Category,
+            QaverageReview = questions.AverageReview,
+            Qrating = questions.Rating,
+            Qtype = questions.Type,
         };
 
-        public static QuestionsModel Map(Questions answers) => new QuestionsModel
+        public static QuestionsModel Map(Questions questions) => new QuestionsModel
         {
-            Id = answers.Qid,
-            Category = answers.Qcategory,
-            AverageReview = answers.QaverageReview,
-            Rating = answers.Qrating,
-            Type = answers.Qtype
+            Id = questions.Qid,
+            Category = questions.Qcategory,
+            AverageReview = questions.QaverageReview,
+            Rating = questions.Qrating,
+            Type = questions.Qtype
         };
 
-        public static Quiz Map(QuizesModel answers) => new Quiz
+        public static Quiz Map(QuizesModel quizes) => new Quiz
         {
-
+            QuizId = quizes.Id,
+            QuizDifficulty = quizes.Difficulty,
+            QuizMaxScore = quizes.MaxScore
         };
 
-        public static QuizesModel Map(Quiz answers) => new QuizesModel
+        public static QuizesModel Map(Quiz quizes) => new QuizesModel
         {
-
+            Id = quizes.QuizId,
+            Difficulty = quizes.QuizDifficulty,
+            MaxScore = quizes.QuizMaxScore
         };
 
-        public static QuizResults Map(QuizResultsModel answers) => new QuizResults
+        public static QuizResults Map(QuizResultsModel results) => new QuizResults
         {
-
+            QuizId = results.QuizId,
+            Qid = results.Qid,
+            Correct = results.Correct
         };
 
-        public static QuizResultsModel Map(QuizResults answers) => new QuizResultsModel
+        public static QuizResultsModel Map(QuizResults results) => new QuizResultsModel
         {
-
+            QuizId = results.QuizId,
+            Qid = results.Qid,
+            Correct = results.Correct
         };
 
         public static Reviews Map(ReviewsModel answers) => new Reviews

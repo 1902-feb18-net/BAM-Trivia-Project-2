@@ -17,6 +17,7 @@ namespace BAMTriviaProject2.DAL
         public string Qtype { get; set; }
         public int Qrating { get; set; }
         public decimal? QaverageReview { get; set; }
+        public string Qstring { get; set; }
 
         public virtual ICollection<Answers> Answers { get; set; }
         public virtual ICollection<QuizResults> QuizResults { get; set; }

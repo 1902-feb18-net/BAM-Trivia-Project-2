@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BLL.Library.Models
 {
-    class QuizResultsModel
+    public class QuizResultsModel
     {
     }
 }

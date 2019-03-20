@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +7,13 @@ namespace BLL.Library.IRepositories
 {
     public interface IQuestionRepo
     {
-        void GetQuestionById(int questionId);
+        QuestionsModel GetQuestionById(int questionId);
 
-        void GetQuestionByCategory(string category);
+        List<QuestionsModel> GetQuestionByCategory(string category);
 
-        void GetQuestionByDifficulty(int difficulty);
+        List<QuestionsModel> GetQuestionByDifficulty(int difficulty);
 
-        void GetQuestionByDifficultyAndCategory(int difficulty, string category);
+        List<QuestionsModel> GetQuestionByDifficultyAndCategory(int difficulty, string category);
 
     }
 }

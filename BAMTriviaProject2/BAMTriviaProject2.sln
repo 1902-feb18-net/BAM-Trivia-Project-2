@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAMTriviaProject2.DAL", "BA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL.Library", "BLL.Library\BLL.Library.csproj", "{4A0FA18F-E0E3-48B5-9C30-C8BE51A01592}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAMTriviaProject2.WebAPI", "BAMTriviaProject2.WebAPI\BAMTriviaProject2.WebAPI.csproj", "{78B3C5FD-A796-401D-B694-547CD40675D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAMTriviaProject2.WebAPI", "BAMTriviaProject2.WebAPI\BAMTriviaProject2.WebAPI.csproj", "{78B3C5FD-A796-401D-B694-547CD40675D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAMTriviaProject2.Testing", "BAMTriviaProject2.Testing\BAMTriviaProject2.Testing.csproj", "{744EF9F2-6D2D-4849-BCB4-EC9EA680C6E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{78B3C5FD-A796-401D-B694-547CD40675D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78B3C5FD-A796-401D-B694-547CD40675D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78B3C5FD-A796-401D-B694-547CD40675D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744EF9F2-6D2D-4849-BCB4-EC9EA680C6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744EF9F2-6D2D-4849-BCB4-EC9EA680C6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744EF9F2-6D2D-4849-BCB4-EC9EA680C6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744EF9F2-6D2D-4849-BCB4-EC9EA680C6E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

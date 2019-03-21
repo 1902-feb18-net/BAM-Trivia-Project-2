@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
-    public class QuizResultsRepo : IQuizResultsRepo
+    public class QuizQuestionsRepo : IQuizQuestionsRepo
     {
         public List<AnswerModel> GetAnswersByQuizId(int QId)
         {

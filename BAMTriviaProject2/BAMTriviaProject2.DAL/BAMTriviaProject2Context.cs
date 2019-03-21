@@ -18,19 +18,11 @@ namespace BAMTriviaProject2.DAL
         public virtual DbSet<Answers> Answers { get; set; }
         public virtual DbSet<Questions> Questions { get; set; }
         public virtual DbSet<Quiz> Quiz { get; set; }
-        public virtual DbSet<QuizResults> QuizResults { get; set; }
+        public virtual DbSet<QuizQuestions> QuizQuestions { get; set; }
+        public virtual DbSet<Results> Results { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Tusers> Tusers { get; set; }
         public virtual DbSet<UserQuizzes> UserQuizzes { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:kagel1902sql.database.windows.net,1433;Initial Catalog=BAMTriviaProject2;Persist Security Info=False;User ID=mpkagel;Password=#7As8*uK;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -99,22 +91,44 @@ namespace BAMTriviaProject2.DAL
                 entity.Property(e => e.QuizDifficulty).HasDefaultValueSql("((1))");
             });
 
-            modelBuilder.Entity<QuizResults>(entity =>
+            modelBuilder.Entity<QuizQuestions>(entity =>
             {
                 entity.HasKey(e => new { e.QuizId, e.Qid })
                     .HasName("PK__QuizResu__27E9BAEC415575D4");
 
-                entity.ToTable("QuizResults", "TP2");
+                entity.ToTable("QuizQuestions", "TP2");
 
                 entity.Property(e => e.Qid).HasColumnName("QId");
 
                 entity.HasOne(d => d.Q)
-                    .WithMany(p => p.QuizResults)
-                    .HasForeignKey(d => d.Qid);
+                    .WithMany(p => p.QuizQuestions)
+                    .HasForeignKey(d => d.Qid)
+                    .HasConstraintName("FK_QuizResults_Questions_QId");
 
                 entity.HasOne(d => d.Quiz)
-                    .WithMany(p => p.QuizResults)
-                    .HasForeignKey(d => d.QuizId);
+                    .WithMany(p => p.QuizQuestions)
+                    .HasForeignKey(d => d.QuizId)
+                    .HasConstraintName("FK_QuizResults_Quiz_QuizId");
+            });
+
+            modelBuilder.Entity<Results>(entity =>
+            {
+                entity.HasKey(e => e.ResultId)
+                    .HasName("PK__Results__976902081729FF21");
+
+                entity.ToTable("Results", "TP2");
+
+                entity.Property(e => e.Qid).HasColumnName("QId");
+
+                entity.Property(e => e.UserAnswer).HasMaxLength(300);
+
+                entity.HasOne(d => d.Q)
+                    .WithMany(p => p.Results)
+                    .HasForeignKey(d => d.Qid);
+
+                entity.HasOne(d => d.UserQuiz)
+                    .WithMany(p => p.Results)
+                    .HasForeignKey(d => d.UserQuizId);
             });
 
             modelBuilder.Entity<Reviews>(entity =>
@@ -179,8 +193,8 @@ namespace BAMTriviaProject2.DAL
 
             modelBuilder.Entity<UserQuizzes>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.QuizId })
-                    .HasName("PK__UserQuiz__EF3CE6A41E98E574");
+                entity.HasKey(e => e.UserQuizId)
+                    .HasName("PK__UserQuiz__20FA6387CF94E6DD");
 
                 entity.ToTable("UserQuizzes", "TP2");
 

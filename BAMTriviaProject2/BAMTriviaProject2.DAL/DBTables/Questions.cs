@@ -8,7 +8,8 @@ namespace BAMTriviaProject2.DAL
         public Questions()
         {
             Answers = new HashSet<Answers>();
-            QuizResults = new HashSet<QuizResults>();
+            QuizQuestions = new HashSet<QuizQuestions>();
+            Results = new HashSet<Results>();
             Reviews = new HashSet<Reviews>();
         }
 
@@ -20,7 +21,8 @@ namespace BAMTriviaProject2.DAL
         public string Qstring { get; set; }
 
         public virtual ICollection<Answers> Answers { get; set; }
-        public virtual ICollection<QuizResults> QuizResults { get; set; }
+        public virtual ICollection<QuizQuestions> QuizQuestions { get; set; }
+        public virtual ICollection<Results> Results { get; set; }
         public virtual ICollection<Reviews> Reviews { get; set; }
     }
 }

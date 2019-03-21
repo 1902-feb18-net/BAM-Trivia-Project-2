@@ -11,5 +11,7 @@ namespace BLL.Library.Models
         public string Type { get; set; }
         public int Rating { get; set; }
         public decimal? AverageReview { get; set; }
+        public string Qstring { get; set; }
+
     }
 }

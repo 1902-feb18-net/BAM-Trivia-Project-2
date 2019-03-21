@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BLL.Library.IRepositories
 {
-    public interface IQuizResultsRepo
+    public interface IQuizQuestionsRepo
     {
         List<AnswerModel> GetAnswersByQuizId(int QId);
 

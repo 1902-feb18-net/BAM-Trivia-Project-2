@@ -4,10 +4,12 @@ using System.Text;
 
 namespace BLL.Library.Models
 {
-    public class QuizResultsModel
+    public class ResultsModel
     {
-        public int QuizId { get; set; }
+        public int ResultId { get; set; }
+        public int UserQuizId { get; set; }
         public int Qid { get; set; }
+        public string UserAnswer { get; set; }
         public bool Correct { get; set; }
     }
 }

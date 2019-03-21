@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BAMTriviaProject2.DAL;
+using BAMTriviaProject2.DAL.Repositories;
+using BLL.Library.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace BAMTriviaProject2.WebAPI
 {
@@ -25,7 +30,22 @@ namespace BAMTriviaProject2.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IUsersRepo, UsersRepo>();
+
+            services.AddDbContext<BAMTriviaProject2Context>(builder =>
+                builder.UseSqlServer(Configuration.GetConnectionString("BAMTriviaProject2")));
+
+            services.AddMvc(options =>
+            {
+                options.ReturnHttpNotAcceptable = true;
+            })
+            //.AddXmlSerializerFormatters()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +62,17 @@ namespace BAMTriviaProject2.WebAPI
             }
 
             app.UseHttpsRedirection();
+
+
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseMvc();
         }
     }

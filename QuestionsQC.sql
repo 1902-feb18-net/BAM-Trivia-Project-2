@@ -1,6 +1,14 @@
 -- sample insert
---Insert Project0.ItemProducts(ItemName, ItemDescription, ItemPrice)
---	VALUES('shirt', 'short sleeves t-shirt', 15.00)
+SELECT *
+FROM TP2.Questions
+
+SELECT *
+FROM TP2.Answers
+
+SELECT q.QString, a.AAnswer, a.Correct
+FROM TP2.Answers AS a
+	INNER JOIN TP2.Questions AS q ON a.QId = q.QId
+WHERE q.QCategory = 'QC';
 
 -- let's make some QC questions
 Insert TP2.Questions(QCategory, QType, QRating, QString)
@@ -65,185 +73,185 @@ Insert TP2.Questions(QCategory, QType, QRating, QString)
 
 -- answers for difficulty 1
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(1, 'A version control tool', 1);
+	VALUES(51, 'A version control tool', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(1, 'A build automaton tool', 0);
+	VALUES(51, 'A build automaton tool', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(1, 'An automation server', 0);
+	VALUES(51, 'An automation server', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(1, 'A container management system', 0);
+	VALUES(51, 'A container management system', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(2, 'True', 1);
+	VALUES(52, 'True', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(2, 'False', 0);
+	VALUES(52, 'False', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(3, '(~) symbol', 0);
+	VALUES(53, '(~) symbol', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(3, '(*) symbol', 0);
+	VALUES(53, '(*) symbol', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(3, '(.) symbol', 1);
+	VALUES(53, '(.) symbol', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(3, '(#) symbol', 0);
+	VALUES(53, '(#) symbol', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(3, '(+) symbol', 0);
+	VALUES(53, '(+) symbol', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(4, 'Communicates only to the view', 0);
+	VALUES(54, 'Communicates only to the view', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(4, 'Uses Razor syntax to render a page with C#', 0);
+	VALUES(54, 'Uses Razor syntax to render a page with C#', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(4, 'Controls the styling on an HTML page', 0);
+	VALUES(54, 'Controls the styling on an HTML page', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(4, 'Communication between model and view', 1);
+	VALUES(54, 'Communication between model and view', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(5, 'Bugs that breaks the system and causes compile time errors', 0);
+	VALUES(55, 'Bugs that breaks the system and causes compile time errors', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(5, 'An estimate on the amount of time needed to fix "Lazy" solutions', 1);
+	VALUES(55, 'An estimate on the amount of time needed to fix "Lazy" solutions', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(5, 'Pieces of code that can cause future potential problems', 0);
+	VALUES(55, 'Pieces of code that can cause future potential problems', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(5, 'You owe money for some online database hosting your project', 0);
+	VALUES(55, 'You owe money for some online database hosting your project', 0);
 
 -- answers for difficulty 2
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(6, 'git checkout -nb <newBranch>', 0);
+	VALUES(56, 'git checkout -nb <newBranch>', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(6, 'git checkout <newBranch>', 0);
+	VALUES(56, 'git checkout <newBranch>', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(6, 'git checkout -b <newBranch> ', 1);
+	VALUES(56, 'git checkout -b <newBranch> ', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(6, 'git checkout -n <newBranch> ', 0);
+	VALUES(56, 'git checkout -n <newBranch> ', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(7, 'an open source platform that performs static analysis of code to determine code quality.', 1);
+	VALUES(57, 'an open source platform that performs static analysis of code to determine code quality.', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(7, 'a closed source platform for testing your code for bugs.', 0);
+	VALUES(57, 'a closed source platform for testing your code for bugs.', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(7, 'cloud computing service created by Microsoft for building, testing, deploying, and managing applications and services through Microsoft-managed data centers.', 0);
+	VALUES(57, 'cloud computing service created by Microsoft for building, testing, deploying, and managing applications and services through Microsoft-managed data centers.', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(7, 'an open-source project for automating the deployment of applications as portable, self-sufficient containers that can run on the cloud or on-premises', 0);
+	VALUES(57, 'an open-source project for automating the deployment of applications as portable, self-sufficient containers that can run on the cloud or on-premises', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(8, 'True', 1);
+	VALUES(58, 'True', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(8, 'False', 0);
+	VALUES(58, 'False', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(9, 'iterative', 1);
+	VALUES(59, 'iterative', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(10, 'kanban', 1);
+	VALUES(60, 'kanban', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(11, 'A partial view.', 0);
+	VALUES(61, 'A partial view.', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(11, 'A view that returns a different type of ActionResult other than ViewResult', 0);
+	VALUES(61, 'A view that returns a different type of ActionResult other than ViewResult', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(11, 'A view used to render a specific type of model.', 1);
+	VALUES(61, 'A view used to render a specific type of model.', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(11, 'A view that does not have a defined model to render.', 0);
+	VALUES(61, 'A view that does not have a defined model to render.', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(12, 'True', 1);
+	VALUES(62, 'True', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(12, 'False', 0);
+	VALUES(62, 'False', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(13, 'absolute', 1);
+	VALUES(63, 'absolute', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(14, 'footer', 0);
+	VALUES(64, 'footer', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(14, 'main', 0);
+	VALUES(64, 'main', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(14, 'nav', 0);
+	VALUES(64, 'nav', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(14, 'header', 0);
+	VALUES(64, 'header', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(14, 'head', 1);
+	VALUES(64, 'head', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(15, 'GET', 0);
+	VALUES(65, 'GET', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(15, 'REMOVE', 1);
+	VALUES(65, 'REMOVE', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(15, 'HEAD', 0);
+	VALUES(65, 'HEAD', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(15, 'PUT', 0);
+	VALUES(65, 'PUT', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(15, 'POST', 0);
+	VALUES(65, 'POST', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(16, 'AWS', 0);
+	VALUES(66, 'AWS', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(16, 'Dropbox', 0);
+	VALUES(66, 'Dropbox', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(16, 'Microsoft Azure', 0);
+	VALUES(66, 'Microsoft Azure', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(16, 'Gmail', 0);
+	VALUES(66, 'Gmail', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(16, 'Heroku', 1);
+	VALUES(66, 'Heroku', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(17, 'Slack', 0);
+	VALUES(67, 'Slack', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(17, 'AWS Elastic Beanstalk', 0);
+	VALUES(67, 'AWS Elastic Beanstalk', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(17, 'Microsoft Azure', 1);
+	VALUES(67, 'Microsoft Azure', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(17, 'Azure Cloud Services', 0);
+	VALUES(67, 'Azure Cloud Services', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(17, 'Office 365', 0);
+	VALUES(67, 'Office 365', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(18, 'Byte', 0);
+	VALUES(68, 'Byte', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(18, 'Long', 1);
+	VALUES(68, 'Long', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(18, 'Int', 0);
+	VALUES(68, 'Int', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(18, 'Short', 0);
+	VALUES(68, 'Short', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(18, 'Char', 0);
+	VALUES(68, 'Char', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(19, 'True', 0);
+	VALUES(69, 'True', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(19, 'False', 1);
+	VALUES(69, 'False', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(20, 'WSDL', 1);
+	VALUES(70, 'WSDL', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(21, 'AWS Elastic Container Service', 0);
+	VALUES(71, 'AWS Elastic Container Service', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(21, 'Kubernetes', 0);
+	VALUES(71, 'Kubernetes', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(21, 'Docker Toolbox', 1);
+	VALUES(71, 'Docker Toolbox', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(21, 'Docker Swarm', 0);
+	VALUES(71, 'Docker Swarm', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(22, 'True', 1);
+	VALUES(72, 'True', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(22, 'False', 0);
+	VALUES(72, 'False', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(23, 'There is no difference', 0);
+	VALUES(73, 'There is no difference', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(23, 'WHERE is used to filter data from the selected table, having is used to filter data from a joined table', 0);
+	VALUES(73, 'WHERE is used to filter data from the selected table, having is used to filter data from a joined table', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(23, 'HAVING is used to specify the conditions for joining tables ', 0);
+	VALUES(73, 'HAVING is used to specify the conditions for joining tables ', 0);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(23, 'WHERE filters data prior to aggregation, HAVING filters data after aggregation', 1);
+	VALUES(73, 'WHERE filters data prior to aggregation, HAVING filters data after aggregation', 1);
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(23, 'None of the above', 0);
+	VALUES(73, 'None of the above', 0);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(24, 'DML', 1);
+	VALUES(74, 'DML', 1);
 
 Insert Tp2.Answers(QId, AAnswer, Correct)
-	VALUES(25, 'First', 1);
+	VALUES(75, 'First', 1);

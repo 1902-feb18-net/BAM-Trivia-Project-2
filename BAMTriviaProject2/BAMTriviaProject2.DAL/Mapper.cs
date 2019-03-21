@@ -57,37 +57,37 @@ namespace BAMTriviaProject2.DAL
             MaxScore = quizes.QuizMaxScore
         };
 
-        public static QuizResults Map(QuizResultsModel results) => new QuizResults
-        {
-            QuizId = results.QuizId,
-            Qid = results.Qid,
-            Correct = results.Correct
-        };
+        //public static QuizResults Map(QuizResultsModel results) => new QuizResults
+        //{
+        //    QuizId = results.QuizId,
+        //    Qid = results.Qid,
+        //    Correct = results.Correct
+        //};
 
-        public static QuizResultsModel Map(QuizResults results) => new QuizResultsModel
-        {
-            QuizId = results.QuizId,
-            Qid = results.Qid,
-            Correct = results.Correct
-        };
+        //public static QuizResultsModel Map(QuizResults results) => new QuizResultsModel
+        //{
+        //    QuizId = results.QuizId,
+        //    Qid = results.Qid,
+        //    Correct = results.Correct
+        //};
 
-        public static Reviews Map(ReviewsModel reviews) => new Reviews
-        {
-            Rid = reviews.Id,
-            Qid = reviews.Qid,
-            QuizId = reviews.QuizId,
-            UserId = reviews.UserId,
-            Rratings = reviews.Ratings
-        };
+        //public static Reviews Map(ReviewsModel reviews) => new Reviews
+        //{
+        //    Rid = reviews.Id,
+        //    Qid = reviews.Qid,
+        //    QuizId = reviews.QuizId,
+        //    UserId = reviews.UserId,
+        //    Rratings = reviews.Ratings
+        //};
 
-        public static ReviewsModel Map(Reviews reviews) => new ReviewsModel
-        {
-            Id = reviews.Rid,
-            Qid = reviews.Qid,
-            QuizId = reviews.QuizId,
-            UserId = reviews.UserId,
-            Ratings = reviews.Rratings
-        };
+        //public static ReviewsModel Map(Reviews reviews) => new ReviewsModel
+        //{
+        //    Id = reviews.Rid,
+        //    Qid = reviews.Qid,
+        //    QuizId = reviews.QuizId,
+        //    UserId = reviews.UserId,
+        //    Ratings = reviews.Rratings
+        //};
 
         public static Tusers Map(UsersModel users) => new Tusers
         {
@@ -99,7 +99,7 @@ namespace BAMTriviaProject2.DAL
             CreditCardNumber = users.CreditCardNumber,
             PointTotal = users.PointTotal,
             AccountType = users.AccountType
-            
+
         };
 
         public static UsersModel Map(Tusers users) => new UsersModel
@@ -144,13 +144,13 @@ namespace BAMTriviaProject2.DAL
 
         public static IEnumerable<QuizesModel> Map(IEnumerable<Quiz> _Quiz) => _Quiz.Select(Map);
 
-        public static IEnumerable<QuizResults> Map(IEnumerable<QuizResultsModel> Result) => Result.Select(Map);
+        //public static IEnumerable<QuizResults> Map(IEnumerable<QuizResultsModel> Result) => Result.Select(Map);
 
-        public static IEnumerable<QuizResultsModel> Map(IEnumerable<QuizResults> Result) => Result.Select(Map);
+        //public static IEnumerable<QuizResultsModel> Map(IEnumerable<QuizResults> Result) => Result.Select(Map);
 
-        public static IEnumerable<Reviews> Map(IEnumerable<ReviewsModel> Review) => Review.Select(Map);
+        //public static IEnumerable<Reviews> Map(IEnumerable<ReviewsModel> Review) => Review.Select(Map);
 
-        public static IEnumerable<ReviewsModel> Map(IEnumerable<Reviews> Review) => Review.Select(Map);
+        //public static IEnumerable<ReviewsModel> Map(IEnumerable<Reviews> Review) => Review.Select(Map);
 
         public static IEnumerable<UserQuizzes> Map(IEnumerable<UserQuizesModel> uQuiz) => uQuiz.Select(Map);
 

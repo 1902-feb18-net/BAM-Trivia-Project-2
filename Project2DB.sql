@@ -7,7 +7,7 @@ GO
 
 -- Drop Tables (optional, only for clean slate)
 --DROP TABLE TP2.Answers;
---DROP TABLE TP2.QuizResults;
+--DROP TABLE TP2.QuizQuestions;
 --DROP TABLE TP2.Reviews;
 --DROP TABLE TP2.UserQuizzes;
 --DROP TABLE TP2.Questions;
@@ -61,10 +61,9 @@ CREATE TABLE TP2.Quiz (
 )
 
 -- Quiz Results
-CREATE TABLE TP2.QuizResults (
+CREATE TABLE TP2.QuizQuestions (
 	QuizId INT NOT NULL,
 	QId INT NOT NULL,
-	Correct BIT NOT NULL DEFAULT(0),
 	PRIMARY KEY (QuizId, QId) -- composite key
 )
 
@@ -79,12 +78,21 @@ CREATE TABLE TP2.Reviews (
 
 -- table for user quizzes
 CREATE TABLE TP2.UserQuizzes(
+	UserQuizId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 	UserId INT NOT NULL,
 	QuizId INT NOT NULL,
 	QuizMaxScore INT NOT NULL,
 	QuizActualScore INT NOT NULL,
-	QuizDate DATETIME2 NOT NULL DEFAULT(GETDATE()),
-	PRIMARY KEY(UserId, QuizId)
+	QuizDate DATETIME2 NOT NULL DEFAULT(GETDATE())
+)
+
+-- table for user quiz results
+CREATE TABLE TP2.Results(
+	ResultId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	UserQuizId INT NOT NULL,
+	QId INT NOT NULL,
+	UserAnswer NVARCHAR(300),
+	Correct BIT NOT NULL DEFAULT(0)
 )
 
 --ALTER TABLE Project0.Inventory 
@@ -111,6 +119,10 @@ ALTER TABLE TP2.QuizResults
 ALTER TABLE TP2.Answers
 	ADD CONSTRAINT FK_Answers_Questions_QId FOREIGN KEY (QId) REFERENCES TP2.Questions (QId) ON DELETE CASCADE;
 
+ALTER TABLE TP2.Results
+	ADD CONSTRAINT FK_Results_UserQuizzes_UserQuizId FOREIGN KEY (UserQuizId) REFERENCES TP2.UserQuizzes (UserQuizId) ON DELETE CASCADE;
 
+ALTER TABLE TP2.Results
+	ADD CONSTRAINT FK_Results_Questions_QId FOREIGN KEY (QId) REFERENCES TP2.Questions (QId) ON DELETE CASCADE;
 
 

@@ -14,7 +14,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<QuestionsController> _logger;
 
         //public UsersController(IUsersRepo newUsersRepo, ILogger<UsersController> logger)
         //{
@@ -25,24 +25,26 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         //public IUsersRepo usersRepo { get; set; }
         public IQuestionRepo questionsRepo { get; set; }
 
-        //public QuestionsController(IQuestionRepo newQuestionsRepo, ILogger<QuestionsController> logger)
-        //{
-        //    questionsRepo = newQuestionsRepo;
-        //    _logger = logger;
-        //}
+        public QuestionsController(IQuestionRepo newQuestionsRepo, ILogger<QuestionsController> logger)
+        {
+            questionsRepo = newQuestionsRepo;
+            _logger = logger;
+        }
 
         // GET: api/Questions
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "We are in Questions" };
         }
 
         // GET: api/Questions/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetQuestionById")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<QuestionsModel> Get(int id)
         {
-            return "value";
+            return questionsRepo.GetQuestionById(id);
+            //return usersRepo.GetUserById(id);
         }
 
         //// POST: api/Questions

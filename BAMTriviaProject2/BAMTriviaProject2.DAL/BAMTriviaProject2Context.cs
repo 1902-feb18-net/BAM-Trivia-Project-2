@@ -24,6 +24,15 @@ namespace BAMTriviaProject2.DAL
         public virtual DbSet<Tusers> Tusers { get; set; }
         public virtual DbSet<UserQuizzes> UserQuizzes { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:kagel1902sql.database.windows.net,1433;Initial Catalog=BAMTriviaProject2;Persist Security Info=False;User ID=mpkagel;Password=#7As8*uK;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
@@ -87,6 +96,10 @@ namespace BAMTriviaProject2.DAL
             modelBuilder.Entity<Quiz>(entity =>
             {
                 entity.ToTable("Quiz", "TP2");
+
+                entity.Property(e => e.QuizCategory)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.QuizDifficulty).HasDefaultValueSql("((1))");
             });

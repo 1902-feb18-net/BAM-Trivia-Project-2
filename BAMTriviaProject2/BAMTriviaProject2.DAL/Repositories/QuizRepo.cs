@@ -8,15 +8,21 @@ namespace BAMTriviaProject2.DAL.Repositories
 {
     public class QuizRepo : IQuizRepo
     {
-        public QuizesModel GetQuizById(int QId)
+        public QuizzesModel GetQuizById(int QId)
         {
-            QuizesModel m = new QuizesModel();
+            QuizzesModel m = new QuizzesModel();
             return m;
         }
 
-        public List<QuizesModel> GetAllQuizzes()
+        public List<QuizzesModel> GetAllQuizzes()
         {
-            List<QuizesModel> list = new List<QuizesModel>();
+            List<QuizzesModel> list = new List<QuizzesModel>();
+            return list;
+        }
+
+        public List<QuizzesModel> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty)
+        {
+            List<QuizzesModel> list = new List<QuizzesModel>();
             return list;
         }
     }

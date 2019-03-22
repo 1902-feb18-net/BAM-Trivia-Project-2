@@ -14,6 +14,7 @@ namespace BAMTriviaProject2.DAL
         public int QuizId { get; set; }
         public int QuizMaxScore { get; set; }
         public int QuizDifficulty { get; set; }
+        public string QuizCategory { get; set; }
 
         public virtual ICollection<QuizQuestions> QuizQuestions { get; set; }
         public virtual ICollection<UserQuizzes> UserQuizzes { get; set; }

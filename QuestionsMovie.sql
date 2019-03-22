@@ -13,11 +13,17 @@ WHERE q.QCategory = 'Movie';
 
 -- movie questions
 INSERT INTO TP2.Questions (QCategory, QType, QRating, QString) VALUES
-	('Movie', 'Multiple', 1, 'Which one of these Academy Awards did Gone With the Wind not win?'),
-	('Movie', 'Multiple', 1, 'Clint Eastwood gave us the immortal line, "Go ahead... make my day", in what film?'),
-	('Movie', 'Multiple', 1, 'In the Friday the 13th movies, what is the name of the masked killer?'),
-	('Movie', 'Multiple', 1, 'What was the name of the island on which King Kong was discovered in the original 1933 movie?'),
-	('Movie', 'Multiple', 1, 'Julie Andrews won the Academy Award for best actress in what film?'),
+	('Movie', 'Multiple', 1, 'Who is Disney''s mascot?'),
+	('Movie', 'Fill', 1, 'What school did Harry Potter attend? (Just one word for the school)'),
+	('Movie', 'Fill', 1, 'The ''Staypuft Marshmallow Man'' appeared in which film?'),
+	('Movie', 'Bool', 1, 'Is Kirk, Spock, Han Solo all within the Star Trek universe?'),
+	('Movie', 'Multiple', 1, 'In the Lion King, who was the main villain?'),
+
+	('Movie', 'Multiple', 3, 'Which one of these Academy Awards did Gone With the Wind not win?'),
+	('Movie', 'Multiple', 4, 'Clint Eastwood gave us the immortal line, "Go ahead... make my day", in what film?'),
+	('Movie', 'Multiple', 2, 'In the Friday the 13th movies, what is the name of the masked killer?'),
+	('Movie', 'Multiple', 2, 'What was the name of the island on which King Kong was discovered in the original 1933 movie?'),
+	('Movie', 'Multiple', 3, 'Julie Andrews won the Academy Award for best actress in what film?'),
 
 	('Movie', 'Multiple', 2, 'In the movie Who Framed Roger Rabbit, which pair of genetically similar characters perform a piano duet?'),
 	('Movie', 'Multiple', 2, 'Which cult film contains the line - "If you wake up at a different time, in a different place, could you wake up as a different person?"'),
@@ -129,3 +135,21 @@ INSERT INTO TP2.Answers (QId, AAnswer, Correct) VALUES
 	(50, 'War of the Worlds', 0),
 	(50, 'Tropic Thunder', 0),
 	(50, 'Mission Impossible', 1);
+
+	INSERT INTO TP2.Answers (QId, AAnswer, Correct) VALUES
+	(76, 'Mickey Mouse', 1),
+	(76, 'Pluto', 0),
+	(76, 'Mowgli', 0),
+	(76, 'Robin Hood', 0),
+
+	(77, 'Hogwarts', 1),
+
+	(78, 'Ghostbusters', 1),
+
+	(79, 'True', 0),
+	(79, 'False', 1),
+
+	(80, 'Scar', 1),
+	(80, 'Kovu', 0),
+	(80, 'Timon', 0),
+	(80, 'Simba', 0);

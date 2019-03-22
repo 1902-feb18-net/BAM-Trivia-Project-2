@@ -6,21 +6,21 @@ using System.Text;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
-    public class UserQuizesRepo : IUserQuizesRepo
+    public class UserQuizesRepo : IUserQuizzesRepo
     {
-        public List<UserQuizesModel> GetUserQuizesByUser(int userId)
+        public List<UserQuizzesModel> GetUserQuizesByUser(int userId)
         {
-            List<UserQuizesModel> list = new List<UserQuizesModel>();
+            List<UserQuizzesModel> list = new List<UserQuizzesModel>();
             return list;
         }
 
-        public List<UserQuizesModel> GetUserQuizesByQuiz(int QId)
+        public List<UserQuizzesModel> GetUserQuizesByQuiz(int QId)
         {
-            List<UserQuizesModel> list = new List<UserQuizesModel>();
+            List<UserQuizzesModel> list = new List<UserQuizzesModel>();
             return list;
         }
 
-        public double GetMaxScoreOfQuiz(QuizesModel quiz)
+        public double GetMaxScoreOfQuiz(QuizzesModel quiz)
         {
             return 0.0;
         }

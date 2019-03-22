@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BLL.Library.Models
 {
-    public class UserQuizesModel
+    public class UserQuizzesModel
     {
         public int UserId { get; set; }
         public int QuizId { get; set; }

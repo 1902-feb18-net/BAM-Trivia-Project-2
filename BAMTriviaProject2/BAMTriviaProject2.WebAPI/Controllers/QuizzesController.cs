@@ -40,6 +40,12 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return View();
         }
 
+        // GET: Quizzes/Find/5
+        public ActionResult Find(int id)
+        {
+            return View();
+        }
+
         // POST: Quizzes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

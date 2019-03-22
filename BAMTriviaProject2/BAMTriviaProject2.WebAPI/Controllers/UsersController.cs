@@ -6,6 +6,7 @@ using BLL.Library.IRepositories;
 using BLL.Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BAMTriviaProject2.WebAPI.Controllers
 {
@@ -13,9 +14,13 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public UsersController(IUsersRepo newUsersRepo)
+        private readonly ILogger<UsersController> _logger;
+
+
+        public UsersController(IUsersRepo newUsersRepo, ILogger<UsersController> logger)
         {
             usersRepo = newUsersRepo;
+            _logger = logger;
         }
 
         public IUsersRepo usersRepo { get; set; }

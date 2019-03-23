@@ -40,22 +40,71 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+
+        // grab questions by category: Movie, QC, Beer are the current ones
         public List<QuestionsModel> GetQuestionByCategory(string category)
         {
-            List<QuestionsModel> list = new List<QuestionsModel>();
-            return list;
+
+            try
+            {
+                return Mapper.Map(Context.Questions.Where(c => c.Qcategory == category)).ToList();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
         }
 
         public List<QuestionsModel> GetQuestionByDifficulty(int difficulty)
         {
-            List<QuestionsModel> list = new List<QuestionsModel>();
-            return list;
+            try
+            {
+                return Mapper.Map(Context.Questions.Where(c => c.Qrating == difficulty)).ToList();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
         }
 
         public List<QuestionsModel> GetQuestionByDifficultyAndCategory(int difficulty, string category)
         {
-            List<QuestionsModel> list = new List<QuestionsModel>();
-            return list;
+            try
+            {
+                return Mapper.Map(Context.Questions
+                    .Where(c => c.Qcategory == category)
+                    .Where(d => d.Qrating == difficulty))
+                    .ToList();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
+        public void AddQuestion(QuestionsModel question)
+        {
+            var value = Mapper.Map(question);
+            Context.Add(value);
+            Context.SaveChanges();
         }
     }
 }

@@ -57,6 +57,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             var details = new AuthAccountDetails
             {
                 Username = User.Identity.Name,
+                AccountType = User.IsInRole("admin"),
                 Roles = User.Claims.Where(c => c.Type == ClaimTypes.Role)
                                    .Select(c => c.Value)
             };
@@ -94,7 +95,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             [FromServices] RoleManager<IdentityRole> roleManager,
             [FromServices] UserManager<IdentityUser> userManager)
         {
-            register.AccountType = false;
             var user = new IdentityUser(register.Username);
 
             IdentityResult createUserResult = await userManager.CreateAsync(user,
@@ -105,7 +105,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
                 return BadRequest(createUserResult);
             }
 
-            if (register.AccountType)
+            if (register.AccountType == true)
             {
                 // make sure admin role exists
                 if (!await roleManager.RoleExistsAsync("admin"))
@@ -129,6 +129,17 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             }
 
             await SignInManager.SignInAsync(user, false);
+
+            await usersRepo.AddAsync(new UsersModel
+            {
+                FirstName = register.FirstName,
+                LastName = register.LastName,
+                PW = "a",
+                Username = register.Username,
+                CreditCardNumber = register.CreditCardNumber,
+                PointTotal = 0,
+                AccountType = register.AccountType
+            });
 
             return NoContent(); // nothing to show the user that he can access
         }

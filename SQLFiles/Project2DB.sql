@@ -14,6 +14,16 @@ GO
 --DROP TABLE TP2.Quiz;
 --DROP TABLE TP2.TUsers;
 
+-- Checking Table Commands
+SELECT * FROM TP2.TUsers
+SELECT * FROM TP2.UserQuizzes
+SELECT * FROM TP2.Quiz
+SELECT * FROM TP2.QuizQuestions
+SELECT * FROM TP2.Questions
+SELECT * FROM TP2.Answers
+SELECT * FROM TP2.Reviews
+SELECT * FROM TP2.Results
+
 -- Create Tables
 
 --user table

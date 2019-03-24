@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL.Library.IRepositories;
+using BLL.Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace BAMTriviaProject2.WebAPI.Controllers
 {
-    public class QuizzesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class QuizzesController : ControllerBase
     {
         private readonly ILogger<QuizzesController> _logger;
 
@@ -22,28 +25,18 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         public IQuizRepo quizRepo { get; set; }
 
-        // GET: Quizzes
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Quizzes/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Quizzes/Create
-        public ActionResult Create()
+        //[HttpGet("{Quizzes}", Name = "Create")]
+        public async Task<ActionResult<QuizzesModel>> Create()
         {
-            return View();
+            QuizzesModel quizzes = new QuizzesModel();
+            return quizzes;
         }
 
         // GET: Quizzes/Find/5
-        public ActionResult Find(int id)
+        public ActionResult<QuizzesModel> Find(int id)
         {
-            return View();
+            return quizRepo.GetQuizById(id);
         }
 
         // POST: Quizzes/Create
@@ -55,58 +48,58 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction();
             }
             catch
             {
-                return View();
+                return RedirectToAction();
             }
         }
 
         // GET: Quizzes/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult<QuizzesModel> Edit(int id)
         {
-            return View();
+            return quizRepo.GetQuizById(id);
         }
 
-        // POST: Quizzes/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //// POST: Quizzes/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return ViewResult();
+        //    }
+        //}
 
         // GET: Quizzes/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult<QuizzesModel> Delete(int id)
         {
-            return View();
+            return quizRepo.GetQuizById(id);
         }
 
-        // POST: Quizzes/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //// POST: Quizzes/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return ViewResult();
+        //    }
+        //}
     }
 }

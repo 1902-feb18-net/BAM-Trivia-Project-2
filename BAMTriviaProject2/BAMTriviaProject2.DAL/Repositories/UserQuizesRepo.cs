@@ -17,10 +17,11 @@ namespace BAMTriviaProject2.DAL.Repositories
         private readonly IMapper _mapper;
 
         public UserQuizesRepo(BAMTriviaProject2Context dbContext,
-            ILogger<UserQuizesRepo> logger)
+            ILogger<UserQuizesRepo> logger, IMapper mapper)
         {
             _db = dbContext;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public List<UserQuizzesModel> GetUserQuizesByUser(int userId)

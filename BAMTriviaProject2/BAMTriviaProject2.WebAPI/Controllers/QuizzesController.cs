@@ -26,15 +26,17 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         public IQuizRepo quizRepo { get; set; }
 
         // GET: Quizzes/Create
+        //[HttpGet("{Quizzes}", Name = "Create")]
         [HttpGet]
-        public ActionResult<QuizzesModel> Create()
+        public async Task<ActionResult<QuizzesModel>> Create()
         {
             QuizzesModel quizzes = new QuizzesModel();
             return quizzes;
         }
 
+
         // GET: Quizzes/Find/5
-        [HttpGet]
+        [HttpGet("{id}", Name = "GetQuizById")]
         public ActionResult<QuizzesModel> Find(int id)
         {
             return quizRepo.GetQuizById(id);
@@ -58,7 +60,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         // GET: Quizzes/Edit/5
-        [HttpGet]
+        [HttpPut("{id}", Name = "EditQuizById")]
         public ActionResult<QuizzesModel> Edit(int id)
         {
             return quizRepo.GetQuizById(id);
@@ -82,7 +84,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         //}
 
         // GET: Quizzes/Delete/5
-        [HttpGet]
+        [HttpDelete("{id}", Name = "DeleteQuizById")]
         public ActionResult<QuizzesModel> Delete(int id)
         {
             return quizRepo.GetQuizById(id);

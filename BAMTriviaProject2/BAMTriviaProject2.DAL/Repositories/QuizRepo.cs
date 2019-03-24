@@ -13,13 +13,14 @@ namespace BAMTriviaProject2.DAL.Repositories
     {
         private readonly ILogger<QuizRepo> _logger;
         public static BAMTriviaProject2Context _db { get; set; }
+        private readonly IMapper _mapper;
 
         public QuizRepo(BAMTriviaProject2Context dbContext,
-            ILogger<QuizRepo> logger)
+            ILogger<QuizRepo> logger, IMapper mapper)
         {
             _db = dbContext;
             _logger = logger;
-
+            _mapper = mapper;
         }
 
         public QuizzesModel GetQuizById(int QId)
@@ -27,7 +28,7 @@ namespace BAMTriviaProject2.DAL.Repositories
 
             try
             {
-                return Mapper.Map(_db.Quiz.Single(r => r.QuizId == QId));
+                return _mapper.Map(_db.Quiz.Single(r => r.QuizId == QId));
             }
             catch (SqlException ex)
             {
@@ -45,7 +46,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                return Mapper.Map(_db.Quiz).ToList();
+                return _mapper.Map(_db.Quiz).ToList();
             }
             catch (SqlException ex)
             {
@@ -63,7 +64,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         { 
             try
             {
-                return Mapper.Map(_db.Quiz
+                return _mapper.Map(_db.Quiz
                     .Where(c => c.QuizCategory == category)
                     .Where(d => d.QuizDifficulty == difficulty))
                     .ToList();

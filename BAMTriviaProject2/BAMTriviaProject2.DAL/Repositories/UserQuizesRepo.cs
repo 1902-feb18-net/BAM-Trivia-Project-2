@@ -14,6 +14,7 @@ namespace BAMTriviaProject2.DAL.Repositories
 
         private readonly ILogger<UserQuizesRepo> _logger;
         public static BAMTriviaProject2Context _db { get; set; }
+        private readonly IMapper _mapper;
 
         public UserQuizesRepo(BAMTriviaProject2Context dbContext,
             ILogger<UserQuizesRepo> logger)
@@ -26,7 +27,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                return Mapper.Map(_db.UserQuizzes.Where(u => u.UserId == userId)).ToList();
+                return _mapper.Map(_db.UserQuizzes.Where(u => u.UserId == userId)).ToList();
             }
             catch (SqlException ex)
             {

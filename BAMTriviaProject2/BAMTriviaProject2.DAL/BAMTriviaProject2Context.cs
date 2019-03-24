@@ -88,6 +88,10 @@ namespace BAMTriviaProject2.DAL
             {
                 entity.ToTable("Quiz", "TP2");
 
+                entity.Property(e => e.QuizCategory)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.QuizDifficulty).HasDefaultValueSql("((1))");
             });
 

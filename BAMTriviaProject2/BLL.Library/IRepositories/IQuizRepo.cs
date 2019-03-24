@@ -7,8 +7,11 @@ namespace BLL.Library.IRepositories
 {
     public interface IQuizRepo
     {
-        QuizesModel GetQuizById(int QId);
+        QuizzesModel GetQuizById(int QId);
 
-        List<QuizesModel> GetAllQuizzes();
+        List<QuizzesModel> GetAllQuizzes();
+
+        List<QuizzesModel> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty);
+
     }
 }

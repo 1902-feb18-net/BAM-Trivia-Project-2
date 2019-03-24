@@ -9,6 +9,8 @@ namespace BLL.Library.IRepositories
     {
         QuestionsModel GetQuestionById(int questionId);
 
+        void AddQuestion(QuestionsModel question);
+
         List<QuestionsModel> GetQuestionByCategory(string category);
 
         List<QuestionsModel> GetQuestionByDifficulty(int difficulty);

@@ -45,14 +45,14 @@ namespace BAMTriviaProject2.DAL
             Qstring = questions.Qstring
         };
 
-        public static Quiz Map(QuizesModel quizes) => new Quiz
+        public static Quiz Map(QuizzesModel quizes) => new Quiz
         {
             QuizId = quizes.Id,
             QuizDifficulty = quizes.Difficulty,
             QuizMaxScore = quizes.MaxScore
         };
 
-        public static QuizesModel Map(Quiz quizes) => new QuizesModel
+        public static QuizzesModel Map(Quiz quizes) => new QuizzesModel
         {
             Id = quizes.QuizId,
             Difficulty = quizes.QuizDifficulty,
@@ -132,7 +132,7 @@ namespace BAMTriviaProject2.DAL
             AccountType = users.AccountType
         };
 
-        public static UserQuizzes Map(UserQuizesModel quizes) => new UserQuizzes
+        public static UserQuizzes Map(UserQuizzesModel quizes) => new UserQuizzes
         {
             UserId = quizes.UserId,
             QuizId = quizes.QuizId,
@@ -141,7 +141,7 @@ namespace BAMTriviaProject2.DAL
             QuizActualScore = quizes.QuizActualScore
         };
 
-        public static UserQuizesModel Map(UserQuizzes quizes) => new UserQuizesModel
+        public static UserQuizzesModel Map(UserQuizzes quizes) => new UserQuizzesModel
         {
             UserId = quizes.UserId,
             QuizId = quizes.QuizId,
@@ -158,9 +158,9 @@ namespace BAMTriviaProject2.DAL
 
         public static IEnumerable<QuestionsModel> Map(IEnumerable<Questions> Question) => Question.Select(Map);
 
-        public static IEnumerable<Quiz> Map(IEnumerable<QuizesModel> _Quiz) => _Quiz.Select(Map);
+        public static IEnumerable<Quiz> Map(IEnumerable<QuizzesModel> _Quiz) => _Quiz.Select(Map);
 
-        public static IEnumerable<QuizesModel> Map(IEnumerable<Quiz> _Quiz) => _Quiz.Select(Map);
+        public static IEnumerable<QuizzesModel> Map(IEnumerable<Quiz> _Quiz) => _Quiz.Select(Map);
 
         public static IEnumerable<QuizQuestions> Map(IEnumerable<QuizQuestionsModel> qq) => qq.Select(Map);
 
@@ -174,9 +174,9 @@ namespace BAMTriviaProject2.DAL
 
         public static IEnumerable<ReviewsModel> Map(IEnumerable<Reviews> Review) => Review.Select(Map);
 
-        public static IEnumerable<UserQuizzes> Map(IEnumerable<UserQuizesModel> uQuiz) => uQuiz.Select(Map);
+        public static IEnumerable<UserQuizzes> Map(IEnumerable<UserQuizzesModel> uQuiz) => uQuiz.Select(Map);
 
-        public static IEnumerable<UserQuizesModel> Map(IEnumerable<UserQuizzes> uQuiz) => uQuiz.Select(Map);
+        public static IEnumerable<UserQuizzesModel> Map(IEnumerable<UserQuizzes> uQuiz) => uQuiz.Select(Map);
 
         public static IEnumerable<Tusers> Map(IEnumerable<UsersModel> User) => User.Select(Map);
 

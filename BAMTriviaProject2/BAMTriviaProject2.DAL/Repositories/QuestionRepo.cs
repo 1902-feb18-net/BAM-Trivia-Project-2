@@ -21,6 +21,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             Context = dbContext;
             _logger = logger;
+            _mapper = mapper;
 
         }
 

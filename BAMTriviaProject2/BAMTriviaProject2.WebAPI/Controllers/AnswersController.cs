@@ -24,13 +24,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             _logger = logger;
         }
 
-        //// GET: api/Answers
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
         // GET: api/Answers/5
         [HttpGet("{id}", Name = "GetAnswersByQuestionId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

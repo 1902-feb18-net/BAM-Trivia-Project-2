@@ -12,13 +12,15 @@ namespace BAMTriviaProject2.DAL.Repositories
     public class AnswersRepo : IAnswersRepo
     {
         private readonly ILogger<AnswersRepo> _logger;
+        private readonly IMapper _mapper;
         public static BAMTriviaProject2Context Context { get; set; }
 
         public AnswersRepo(BAMTriviaProject2Context dbContext,
-            ILogger<AnswersRepo> logger)
+            ILogger<AnswersRepo> logger, IMapper mapper)
         {
             Context = dbContext;
             _logger = logger;
+            _mapper = mapper;
 
         }
 
@@ -27,7 +29,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                return Mapper.Map(Context.Answers.Where(c => c.Qid == questionId)).ToList();
+                return _mapper.Map(Context.Answers.Where(c => c.Qid == questionId)).ToList();
             }
             catch (SqlException ex)
             {

@@ -2,7 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-// Not sure where to put custom attributes, for now VS placed in here
+// Not sure where to put custom attributes, made folder in BLL.Library for this
+/// <summary>
+/// this custom attribute verifies if you have entered in the correct string out of a list of possible strings
+/// </summary>
 namespace BLL.Library.CustomValidations
 {
     internal class StringRangeAttribute : ValidationAttribute

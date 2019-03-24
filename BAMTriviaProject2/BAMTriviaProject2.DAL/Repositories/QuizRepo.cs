@@ -3,6 +3,7 @@ using BLL.Library.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -23,19 +24,60 @@ namespace BAMTriviaProject2.DAL.Repositories
 
         public QuizzesModel GetQuizById(int QId)
         {
-            return Mapper.Map(_db.Quiz.First(r => r.QuizId == QId)) ?? throw new ArgumentNullException("ID needs to be valid");
+
+            try
+            {
+                return Mapper.Map(_db.Quiz.Single(r => r.QuizId == QId));
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
         }
 
         public List<QuizzesModel> GetAllQuizzes()
         {
-            return Mapper.Map(_db.Quiz).ToList();
+            try
+            {
+                return Mapper.Map(_db.Quiz).ToList();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
         }
 
         public List<QuizzesModel> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty)
-        {
-            //return Mapper.Map(_db.Quiz.GroupBy(q => q.QuizCategory == category && q.QuizDifficulty == difficulty));
-            List<QuizzesModel> list = new List<QuizzesModel>();
-            return list;
+        { 
+            try
+            {
+                return Mapper.Map(_db.Quiz
+                    .Where(c => c.QuizCategory == category)
+                    .Where(d => d.QuizDifficulty == difficulty))
+                    .ToList();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
         }
     }
 }

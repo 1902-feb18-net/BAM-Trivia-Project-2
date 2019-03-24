@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL.Library.IRepositories;
+using BLL.Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace BAMTriviaProject2.WebAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class QuizzesController : Controller
     {
         private readonly ILogger<QuizzesController> _logger;
@@ -35,9 +38,11 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         // GET: Quizzes/Create
-        public ActionResult Create()
+        //[HttpGet("{quizzes}", Name = "Create")]
+        public ActionResult<QuizzesModel> Create()
         {
-            return View();
+            QuizzesModel quizzes = new QuizzesModel();
+            return quizzes;
         }
 
         // GET: Quizzes/Find/5

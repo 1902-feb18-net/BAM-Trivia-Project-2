@@ -39,6 +39,8 @@ namespace BAMTriviaProject2.WebAPI
             services.AddScoped<IQuestionRepo, QuestionRepo>();
             services.AddScoped<IQuizRepo, QuizRepo>();
 
+            services.AddSingleton<IMapper, Mapper>();
+
             services.AddDbContext<BAMTriviaProject2Context>(builder =>
                 builder.UseSqlServer(Configuration.GetConnectionString("BAMTriviaProject2")));
 

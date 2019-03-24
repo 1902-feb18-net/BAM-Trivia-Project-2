@@ -6,10 +6,10 @@ using System.Text;
 
 namespace BAMTriviaProject2.DAL
 {
-    public class Mapper
+    public class Mapper : IMapper
     {
 
-        public static Answers Map(AnswerModel answers) => new Answers
+        public Answers Map(AnswerModel answers) => new Answers
         {
             Aid = answers.Id,
             Qid = answers.QuestionId,
@@ -17,7 +17,7 @@ namespace BAMTriviaProject2.DAL
             Aanswer = answers.Answer
         };
 
-        public static AnswerModel Map(Answers answers) => new AnswerModel
+        public AnswerModel Map(Answers answers) => new AnswerModel
         {
             Id = answers.Aid,
             QuestionId = answers.Qid,
@@ -25,7 +25,7 @@ namespace BAMTriviaProject2.DAL
             Answer = answers.Aanswer
         };
 
-        public static Questions Map(QuestionsModel questions) => new Questions
+        public Questions Map(QuestionsModel questions) => new Questions
         {
             Qid = questions.Id,
             Qcategory = questions.Category,
@@ -35,7 +35,7 @@ namespace BAMTriviaProject2.DAL
             Qstring = questions.Qstring
         };
 
-        public static QuestionsModel Map(Questions questions) => new QuestionsModel
+        public QuestionsModel Map(Questions questions) => new QuestionsModel
         {
             Id = questions.Qid,
             Category = questions.Qcategory,
@@ -45,33 +45,33 @@ namespace BAMTriviaProject2.DAL
             Qstring = questions.Qstring
         };
 
-        public static Quiz Map(QuizzesModel quizes) => new Quiz
+        public Quiz Map(QuizzesModel quizes) => new Quiz
         {
             QuizId = quizes.Id,
             QuizDifficulty = quizes.Difficulty,
             QuizMaxScore = quizes.MaxScore
         };
 
-        public static QuizzesModel Map(Quiz quizes) => new QuizzesModel
+        public QuizzesModel Map(Quiz quizes) => new QuizzesModel
         {
             Id = quizes.QuizId,
             Difficulty = quizes.QuizDifficulty,
             MaxScore = quizes.QuizMaxScore
         };
 
-        public static QuizQuestions Map(QuizQuestionsModel qq) => new QuizQuestions
+        public QuizQuestions Map(QuizQuestionsModel qq) => new QuizQuestions
         {
             QuizId = qq.QuizId,
             Qid = qq.Qid,
         };
 
-        public static QuizQuestionsModel Map(QuizQuestions qq) => new QuizQuestionsModel
+        public QuizQuestionsModel Map(QuizQuestions qq) => new QuizQuestionsModel
         {
             QuizId = qq.QuizId,
             Qid = qq.Qid,
         };
 
-        public static Results Map(ResultsModel results) => new Results
+        public Results Map(ResultsModel results) => new Results
         {
             ResultId = results.ResultId,
             UserQuizId = results.UserQuizId,
@@ -80,7 +80,7 @@ namespace BAMTriviaProject2.DAL
             UserAnswer = results.UserAnswer
         };
 
-        public static ResultsModel Map(Results results) => new ResultsModel
+        public ResultsModel Map(Results results) => new ResultsModel
         {
             ResultId = results.ResultId,
             UserQuizId = results.UserQuizId,
@@ -89,7 +89,7 @@ namespace BAMTriviaProject2.DAL
             UserAnswer = results.UserAnswer
         };
 
-        public static Reviews Map(ReviewsModel reviews) => new Reviews
+        public Reviews Map(ReviewsModel reviews) => new Reviews
         {
             Rid = reviews.Id,
             Qid = reviews.Qid,
@@ -98,7 +98,7 @@ namespace BAMTriviaProject2.DAL
             Rratings = reviews.Ratings
         };
 
-        public static ReviewsModel Map(Reviews reviews) => new ReviewsModel
+        public ReviewsModel Map(Reviews reviews) => new ReviewsModel
         {
             Id = reviews.Rid,
             Qid = reviews.Qid,
@@ -107,7 +107,7 @@ namespace BAMTriviaProject2.DAL
             Ratings = reviews.Rratings
         };
 
-        public static Tusers Map(UsersModel users) => new Tusers
+        public Tusers Map(UsersModel users) => new Tusers
         {
             UserId = users.UserId,
             FirstName = users.FirstName,
@@ -120,7 +120,7 @@ namespace BAMTriviaProject2.DAL
 
         };
 
-        public static UsersModel Map(Tusers users) => new UsersModel
+        public UsersModel Map(Tusers users) => new UsersModel
         {
             UserId = users.UserId,
             FirstName = users.FirstName,
@@ -132,7 +132,7 @@ namespace BAMTriviaProject2.DAL
             AccountType = users.AccountType
         };
 
-        public static UserQuizzes Map(UserQuizzesModel quizes) => new UserQuizzes
+        public UserQuizzes Map(UserQuizzesModel quizes) => new UserQuizzes
         {
             UserId = quizes.UserId,
             QuizId = quizes.QuizId,
@@ -141,7 +141,7 @@ namespace BAMTriviaProject2.DAL
             QuizActualScore = quizes.QuizActualScore
         };
 
-        public static UserQuizzesModel Map(UserQuizzes quizes) => new UserQuizzesModel
+        public UserQuizzesModel Map(UserQuizzes quizes) => new UserQuizzesModel
         {
             UserId = quizes.UserId,
             QuizId = quizes.QuizId,
@@ -150,36 +150,36 @@ namespace BAMTriviaProject2.DAL
             QuizActualScore = quizes.QuizActualScore
         };
 
-        public static IEnumerable<Answers> Map(IEnumerable<AnswerModel> Answer) => Answer.Select(Map);
+        public IEnumerable<Answers> Map(IEnumerable<AnswerModel> Answer) => Answer.Select(Map);
 
-        public static IEnumerable<AnswerModel> Map(IEnumerable<Answers> Answer) => Answer.Select(Map);
+        public IEnumerable<AnswerModel> Map(IEnumerable<Answers> Answer) => Answer.Select(Map);
 
-        public static IEnumerable<Questions> Map(IEnumerable<QuestionsModel> Question) => Question.Select(Map);
+        public IEnumerable<Questions> Map(IEnumerable<QuestionsModel> Question) => Question.Select(Map);
 
-        public static IEnumerable<QuestionsModel> Map(IEnumerable<Questions> Question) => Question.Select(Map);
+        public IEnumerable<QuestionsModel> Map(IEnumerable<Questions> Question) => Question.Select(Map);
 
-        public static IEnumerable<Quiz> Map(IEnumerable<QuizzesModel> _Quiz) => _Quiz.Select(Map);
+        public IEnumerable<Quiz> Map(IEnumerable<QuizzesModel> _Quiz) => _Quiz.Select(Map);
 
-        public static IEnumerable<QuizzesModel> Map(IEnumerable<Quiz> _Quiz) => _Quiz.Select(Map);
+        public IEnumerable<QuizzesModel> Map(IEnumerable<Quiz> _Quiz) => _Quiz.Select(Map);
 
-        public static IEnumerable<QuizQuestions> Map(IEnumerable<QuizQuestionsModel> qq) => qq.Select(Map);
+        public IEnumerable<QuizQuestions> Map(IEnumerable<QuizQuestionsModel> qq) => qq.Select(Map);
 
-        public static IEnumerable<QuizQuestionsModel> Map(IEnumerable<QuizQuestions> qq) => qq.Select(Map);
+        public IEnumerable<QuizQuestionsModel> Map(IEnumerable<QuizQuestions> qq) => qq.Select(Map);
 
-        public static IEnumerable<Results> Map(IEnumerable<ResultsModel> Result) => Result.Select(Map);
+        public IEnumerable<Results> Map(IEnumerable<ResultsModel> Result) => Result.Select(Map);
 
-        public static IEnumerable<ResultsModel> Map(IEnumerable<Results> Result) => Result.Select(Map);
+        public IEnumerable<ResultsModel> Map(IEnumerable<Results> Result) => Result.Select(Map);
 
-        public static IEnumerable<Reviews> Map(IEnumerable<ReviewsModel> Review) => Review.Select(Map);
+        public IEnumerable<Reviews> Map(IEnumerable<ReviewsModel> Review) => Review.Select(Map);
 
-        public static IEnumerable<ReviewsModel> Map(IEnumerable<Reviews> Review) => Review.Select(Map);
+        public IEnumerable<ReviewsModel> Map(IEnumerable<Reviews> Review) => Review.Select(Map);
 
-        public static IEnumerable<UserQuizzes> Map(IEnumerable<UserQuizzesModel> uQuiz) => uQuiz.Select(Map);
+        public IEnumerable<UserQuizzes> Map(IEnumerable<UserQuizzesModel> uQuiz) => uQuiz.Select(Map);
 
-        public static IEnumerable<UserQuizzesModel> Map(IEnumerable<UserQuizzes> uQuiz) => uQuiz.Select(Map);
+        public IEnumerable<UserQuizzesModel> Map(IEnumerable<UserQuizzes> uQuiz) => uQuiz.Select(Map);
 
-        public static IEnumerable<Tusers> Map(IEnumerable<UsersModel> User) => User.Select(Map);
+        public IEnumerable<Tusers> Map(IEnumerable<UsersModel> User) => User.Select(Map);
 
-        public static IEnumerable<UsersModel> Map(IEnumerable<Tusers> User) => User.Select(Map);
+        public IEnumerable<UsersModel> Map(IEnumerable<Tusers> User) => User.Select(Map);
     }
 }

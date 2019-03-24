@@ -113,7 +113,7 @@ namespace BAMTriviaProject2.DAL
             FirstName = users.FirstName,
             LastName = users.LastName,
             Username = users.Username,
-            Pw = users.Pw,
+            Pw = users.PW,
             CreditCardNumber = users.CreditCardNumber,
             PointTotal = users.PointTotal,
             AccountType = users.AccountType
@@ -126,7 +126,7 @@ namespace BAMTriviaProject2.DAL
             FirstName = users.FirstName,
             LastName = users.LastName,
             Username = users.Username,
-            Pw = users.Pw,
+            PW = users.Pw,
             CreditCardNumber = users.CreditCardNumber,
             PointTotal = users.PointTotal,
             AccountType = users.AccountType

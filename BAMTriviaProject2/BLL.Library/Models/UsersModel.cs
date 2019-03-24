@@ -9,7 +9,7 @@ namespace BLL.Library.Models
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Pw { get; set; }
+        public string PW { get; set; }
         public string Username { get; set; }
         public long? CreditCardNumber { get; set; }
         public int PointTotal { get; set; }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -48,5 +49,14 @@ namespace BAMTriviaProject2.DAL.Repositories
             List<UsersModel> list = new List<UsersModel>();
             return list;
         }
+
+        public async Task<UsersModel> AddAsync(UsersModel user)
+        {
+            Context.Tusers.Add(Mapper.Map(user));
+            await Context.SaveChangesAsync();
+
+            return user;
+        }
+
     }
 }

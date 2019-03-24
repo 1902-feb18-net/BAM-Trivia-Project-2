@@ -14,42 +14,43 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<QuestionsController> _logger;
 
-        //public UsersController(IUsersRepo newUsersRepo, ILogger<UsersController> logger)
-        //{
-        //    usersRepo = newUsersRepo;
-        //    _logger = logger;
-        //}
-
-        //public IUsersRepo usersRepo { get; set; }
         public IQuestionRepo questionsRepo { get; set; }
 
-        //public QuestionsController(IQuestionRepo newQuestionsRepo, ILogger<QuestionsController> logger)
-        //{
-        //    questionsRepo = newQuestionsRepo;
-        //    _logger = logger;
-        //}
+        public QuestionsController(IQuestionRepo newQuestionsRepo, ILogger<QuestionsController> logger)
+        {
+            questionsRepo = newQuestionsRepo;
+            _logger = logger;
+        }
 
         // GET: api/Questions
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<QuestionsModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            //return questionsRepo.GetQuestionByCategory("Movie");
+            //return questionsRepo.GetQuestionByDifficulty(5);
+            return questionsRepo.GetQuestionByDifficultyAndCategory(1, "Movie");
         }
 
         // GET: api/Questions/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetQuestionById")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<QuestionsModel> GetById(int id)
         {
-            return "value";
+            return questionsRepo.GetQuestionById(id);
         }
 
-        //// POST: api/Questions
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        // POST: api/Questions
+        //public async Task<IActionResult> Post([FromBody, Bind("Name")] ApiCharacter apiCharacter)
+        [HttpPost]
+        [ProducesResponseType(typeof(QuestionsModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Post([FromBody] QuestionsModel q)
+        {
+            questionsRepo.AddQuestion(q);
+            return CreatedAtAction(nameof(GetById), new { id = q.Id }, q);
+        }
 
         //// PUT: api/Questions/5
         //[HttpPut("{id}")]

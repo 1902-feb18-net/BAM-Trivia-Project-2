@@ -38,8 +38,8 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         // GET: Quizzes/Create
-        //[HttpGet("{quizzes}", Name = "Create")]
-        public ActionResult<QuizzesModel> Create()
+        //[HttpGet("{Quizzes}", Name = "Create")]
+        public async Task<ActionResult<QuizzesModel>> Create()
         {
             QuizzesModel quizzes = new QuizzesModel();
             return quizzes;

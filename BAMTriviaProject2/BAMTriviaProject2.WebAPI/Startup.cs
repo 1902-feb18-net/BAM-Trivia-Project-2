@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using BAMTriviaProject2.DAL;
 using BAMTriviaProject2.DAL.Repositories;
 using BLL.Library.IRepositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,15 +39,59 @@ namespace BAMTriviaProject2.WebAPI
             services.AddScoped<IQuestionRepo, QuestionRepo>();
             services.AddScoped<IQuizRepo, QuizRepo>();
 
+            services.AddSingleton<IMapper, Mapper>();
+
             services.AddDbContext<BAMTriviaProject2Context>(builder =>
                 builder.UseSqlServer(Configuration.GetConnectionString("BAMTriviaProject2")));
+
+            services.AddDbContext<AuthDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AuthDb")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                // we could just use defaults and not set anything on options
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                // many options here
+            })
+                .AddEntityFrameworkStores<AuthDbContext>();
+
+            var cookieName = Configuration["AuthCookieName"];
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = Configuration["AuthCookieName"];
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = context =>
+                    {
+                        // prevent redirect, just return unauthorized
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.Headers.Remove("Location");
+                        // we use Task.FromResult when we're in an async context
+                        // but there's nothing to await.
+                        return Task.FromResult(0);
+                    },
+                    OnRedirectToAccessDenied = context =>
+                    {
+                        // prevent redirect, just return forbidden
+                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                        context.Response.Headers.Remove("Location");
+                        // we use Task.FromResult when we're in an async context
+                        // but there's nothing to await.
+                        return Task.FromResult(0);
+                    }
+                };
+            });
+
+            services.AddAuthentication();
 
             services.AddMvc(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
             })
-            //.AddXmlSerializerFormatters()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .AddXmlSerializerFormatters()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerGen(c =>
             {
@@ -65,9 +112,6 @@ namespace BAMTriviaProject2.WebAPI
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-
-
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
@@ -77,6 +121,9 @@ namespace BAMTriviaProject2.WebAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            app.UseAuthentication();
+
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

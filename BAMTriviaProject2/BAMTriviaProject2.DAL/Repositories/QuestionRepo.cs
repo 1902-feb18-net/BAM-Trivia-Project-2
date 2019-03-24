@@ -12,10 +12,12 @@ namespace BAMTriviaProject2.DAL.Repositories
     public class QuestionRepo : IQuestionRepo
     {
         private readonly ILogger<QuestionRepo> _logger;
+        private readonly IMapper _mapper;
+
         public static BAMTriviaProject2Context Context { get; set; }
 
         public QuestionRepo(BAMTriviaProject2Context dbContext,
-            ILogger<QuestionRepo> logger)
+            ILogger<QuestionRepo> logger, IMapper mapper)
         {
             Context = dbContext;
             _logger = logger;
@@ -26,7 +28,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                return Mapper.Map(Context.Questions.Single(u => u.Qid == questionId));
+                return _mapper.Map(Context.Questions.Single(u => u.Qid == questionId));
             }
             catch (SqlException ex)
             {
@@ -47,7 +49,7 @@ namespace BAMTriviaProject2.DAL.Repositories
 
             try
             {
-                return Mapper.Map(Context.Questions.Where(c => c.Qcategory == category)).ToList();
+                return _mapper.Map(Context.Questions.Where(c => c.Qcategory == category)).ToList();
             }
             catch (SqlException ex)
             {
@@ -65,7 +67,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                return Mapper.Map(Context.Questions.Where(c => c.Qrating == difficulty)).ToList();
+                return _mapper.Map(Context.Questions.Where(c => c.Qrating == difficulty)).ToList();
             }
             catch (SqlException ex)
             {
@@ -83,7 +85,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                return Mapper.Map(Context.Questions
+                return _mapper.Map(Context.Questions
                     .Where(c => c.Qcategory == category)
                     .Where(d => d.Qrating == difficulty))
                     .ToList();
@@ -102,7 +104,7 @@ namespace BAMTriviaProject2.DAL.Repositories
 
         public void AddQuestion(QuestionsModel question)
         {
-            var value = Mapper.Map(question);
+            var value = _mapper.Map(question);
             Context.Add(value);
             Context.SaveChanges();
         }

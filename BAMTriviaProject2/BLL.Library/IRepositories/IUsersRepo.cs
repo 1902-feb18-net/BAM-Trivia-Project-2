@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Library.IRepositories
 {
@@ -10,5 +11,6 @@ namespace BLL.Library.IRepositories
         UsersModel GetUserById(int id);
 
         List<UsersModel> GetAllUsers();
+        Task<UsersModel> AddAsync(UsersModel user);
     }
 }

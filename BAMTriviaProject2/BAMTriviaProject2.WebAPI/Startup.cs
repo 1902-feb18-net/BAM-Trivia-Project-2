@@ -31,6 +31,9 @@ namespace BAMTriviaProject2.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUsersRepo, UsersRepo>();
+
+            // add question into scope
+            services.AddScoped<IQuestionRepo, QuestionRepo>();
             services.AddScoped<IQuizRepo, QuizRepo>();
 
             services.AddDbContext<BAMTriviaProject2Context>(builder =>

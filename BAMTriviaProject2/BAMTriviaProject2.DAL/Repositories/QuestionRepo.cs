@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -63,7 +62,7 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public List<QuestionsModel> GetQuestionByDifficulty(int difficulty)
+        public List<BLL.Library.Models.QuestionsModel> GetQuestionByDifficulty(int difficulty)
         {
             try
             {
@@ -81,7 +80,7 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public List<QuestionsModel> GetQuestionByDifficultyAndCategory(int difficulty, string category)
+        public List<BLL.Library.Models.QuestionsModel> GetQuestionByDifficultyAndCategory(int difficulty, string category)
         {
             try
             {
@@ -102,7 +101,7 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public void AddQuestion(QuestionsModel question)
+        public void AddQuestion(BLL.Library.Models.QuestionsModel question)
         {
             var value = _mapper.Map(question);
             Context.Add(value);

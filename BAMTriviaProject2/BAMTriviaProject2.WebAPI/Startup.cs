@@ -38,6 +38,7 @@ namespace BAMTriviaProject2.WebAPI
             // add question into scope
             services.AddScoped<IQuestionRepo, QuestionRepo>();
             services.AddScoped<IQuizRepo, QuizRepo>();
+            services.AddScoped<IQuizQuestionsRepo, QuizQuestionsRepo>();
 
             services.AddSingleton<IMapper, Mapper>();
 

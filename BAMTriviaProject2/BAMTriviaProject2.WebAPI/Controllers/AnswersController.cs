@@ -25,25 +25,29 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         // GET: api/Answers/5
-        [HttpGet("{id}", Name = "GetAnswersByQuestionId")]
+        [HttpGet("Quiz/{id}", Name = "GetAnswersByQuestionId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IEnumerable<AnswerModel> GetAnswersByQuestionId(int id)
         {
             return answersRepo.GetAnswerByQuestion(id);
         }
 
-        //public IEnumerable<ApiCharacter> Get()
-        //{
-        //    return _characterRepository.GetAll().Select(_mapper.Map);
-        //    // whenever an action method returns something that's not an IActionResult
-        //    // ... it's automatically wrapped in 200 OK response.
-        //}
+        [HttpGet("{id}", Name = "GetAnswerById")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<AnswerModel> GetById(int id)
+        {
+            return answersRepo.GetAnswerById(id);
+        }
 
-        //// POST: api/Answers
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        // POST: api/Answers
+        [HttpPost]
+        [ProducesResponseType(typeof(AnswerModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Post([FromBody] AnswerModel a)
+        {
+            answersRepo.AddAnswer(a);
+            return CreatedAtAction(nameof(GetById), new { id = a.Id }, a);
+        }
 
         //// PUT: api/Answers/5
         //[HttpPut("{id}")]
@@ -51,10 +55,23 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         //{
         //}
 
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}", Name = "DeleteAnswerById")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Delete(int id)
+        {
+            //answersRepo.DeleteAnswer(id);
+            if (answersRepo.GetAnswerById(id) is AnswerModel answer) //if found
+            {
+                //delete user
+                answersRepo.DeleteAnswer(answer.Id);
+                answersRepo.Save();
+                return NoContent(); // 204
+            }
+
+            //if not found,
+            return NotFound(); //404
+        }
     }
 }

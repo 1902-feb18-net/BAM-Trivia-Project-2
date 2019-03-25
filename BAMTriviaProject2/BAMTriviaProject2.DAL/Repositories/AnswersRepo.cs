@@ -42,5 +42,40 @@ namespace BAMTriviaProject2.DAL.Repositories
                 return null;
             }
         }
+
+        public void AddAnswer(AnswerModel answer)
+        {
+            var value = _mapper.Map(answer);
+            Context.Add(value);
+            Context.SaveChanges();
+        }
+
+        public AnswerModel GetAnswerById(int answerId)
+        {
+            try
+            {
+                return _mapper.Map(Context.Answers.Single(a => a.Aid == answerId));
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
+        public void DeleteAnswer(int Id)
+        {
+            Context.Remove(Context.Answers.Find(Id));
+        }
+
+        public void Save()
+        {
+            Context.SaveChanges();
+        }
     }
 }

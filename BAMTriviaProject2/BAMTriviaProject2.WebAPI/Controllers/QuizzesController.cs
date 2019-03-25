@@ -34,6 +34,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         public async Task<ActionResult<QuizzesModel>> Create()
         {
             QuizzesModel quizzes = new QuizzesModel();
+            quizzes.Id = 1;
             return quizzes;
         }
 
@@ -48,23 +49,23 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         // POST: Quizzes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromBody] QuizzesModel quizzesModel)
+        public async Task<ActionResult> Create([FromBody] QuizzesModel quizzesModel)
         {
 
-                //finds all quizzes in the right category and right difficulty
-                List<QuizzesModel> quizzes = quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
+            //finds all quizzes in the right category and right difficulty
+            IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
+            List<QuizzesModel>quizzes2 = quizzes.ToList();
+            //gets a random quiz out of the list of available ones
+            Random random = new Random();
+            int x = random.Next(quizzes2.Count);
 
-                //gets a random quiz out of the list of available ones
-                Random random = new Random();
-                int x = random.Next(quizzes.Count);
+            //gets the id of the quiz to use
+            int quizId = quizzes2[x].Id;
 
-                //gets the id of the quiz to use
-                int quizId = quizzes[x].Id;
+            //finds all questions that were on that quiz
+            List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
 
-                //finds all questions that were on that quiz
-                List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
-
-                return CreatedAtAction("QuestionsByQuizId", questions);
+            return CreatedAtAction("QuestionsByQuizId", questions);
 
         }
 

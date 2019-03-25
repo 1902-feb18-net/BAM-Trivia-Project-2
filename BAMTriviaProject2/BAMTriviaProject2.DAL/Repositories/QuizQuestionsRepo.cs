@@ -1,5 +1,6 @@
 ﻿using BLL.Library.IRepositories;
 using BLL.Library.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,9 @@ namespace BAMTriviaProject2.DAL.Repositories
             try
             {
                 List<QuizQuestionsModel> quizQuestions = _mapper.Map(_db.QuizQuestions.Where(q => q.QuizId == QId)).ToList();
-                List<QuizzesModel> quizzes = _mapper.Map(_db.Quiz).ToList();
-                QuestionsModel questions = new QuestionsModel();
-                var targetQuestions = quizQuestions.Join(quizzes, qq => qq.Qid, q => q.Id, (qq, q) => questions).ToList();
+                List<QuestionsModel> questions = _mapper.Map(_db.Questions).ToList();
+                QuestionsModel question = new QuestionsModel();
+                var targetQuestions = quizQuestions.Join(questions, qq => qq.Qid, q => q.Id, (qq, q) => question).ToList();
                 return targetQuestions;
             }
             catch (SqlException ex)

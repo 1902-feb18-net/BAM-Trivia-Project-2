@@ -4,8 +4,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -60,14 +62,14 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public List<QuizzesModel> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty)
+        public async Task<IEnumerable<QuizzesModel>> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty)
         { 
             try
             {
-                return _mapper.Map(_db.Quiz
-                    .Where(c => c.QuizCategory == category)
-                    .Where(d => d.QuizDifficulty == difficulty))
-                    .ToList();
+                return _mapper.Map(await _db.Quiz
+                   .Where(c => c.QuizCategory == category)
+                   .Where(d => d.QuizDifficulty == difficulty)
+                   .ToListAsync());
             }
             catch (SqlException ex)
             {

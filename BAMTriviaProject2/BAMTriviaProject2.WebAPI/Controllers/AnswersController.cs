@@ -59,6 +59,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpDelete("{id}", Name = "DeleteAnswerById")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status406NotAcceptable)]
         public IActionResult Delete(int id)
         {
             //answersRepo.DeleteAnswer(id);

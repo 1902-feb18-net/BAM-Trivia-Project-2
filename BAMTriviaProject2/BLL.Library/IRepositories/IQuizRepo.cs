@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Library.IRepositories
 {
@@ -11,7 +12,7 @@ namespace BLL.Library.IRepositories
 
         List<QuizzesModel> GetAllQuizzes();
 
-        List<QuizzesModel> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty);
+        Task<IEnumerable<QuizzesModel>> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty);
 
     }
 }

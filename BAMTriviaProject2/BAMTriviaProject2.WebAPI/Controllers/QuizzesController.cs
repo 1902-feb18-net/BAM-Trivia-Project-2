@@ -16,14 +16,17 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     {
         private readonly ILogger<QuizzesController> _logger;
 
+        public IQuizRepo quizRepo { get; set; }
 
-        public QuizzesController(IQuizRepo _quizRepo, ILogger<QuizzesController> logger)
+        public IQuizQuestionsRepo quizQuestionRepo { get; set; }
+
+        public QuizzesController(IQuizRepo _quizRepo, IQuizQuestionsRepo _quizQuestionRepo, ILogger<QuizzesController> logger)
         {
             quizRepo = _quizRepo;
             _logger = logger;
+            quizQuestionRepo = _quizQuestionRepo;
         }
 
-        public IQuizRepo quizRepo { get; set; }
 
         // GET: Quizzes/Create
         //[HttpGet("{Quizzes}", Name = "Create")]
@@ -31,6 +34,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         public async Task<ActionResult<QuizzesModel>> Create()
         {
             QuizzesModel quizzes = new QuizzesModel();
+            quizzes.Id = 1;
             return quizzes;
         }
 
@@ -45,18 +49,24 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         // POST: Quizzes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create([FromBody] QuizzesModel quizzesModel)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction();
-            }
-            catch
-            {
-                return RedirectToAction();
-            }
+            //finds all quizzes in the right category and right difficulty
+            IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
+            List<QuizzesModel>quizzes2 = quizzes.ToList();
+            //gets a random quiz out of the list of available ones
+            Random random = new Random();
+            int x = random.Next(quizzes2.Count);
+
+            //gets the id of the quiz to use
+            int quizId = quizzes2[x].Id;
+
+            //finds all questions that were on that quiz
+            List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
+
+            return CreatedAtAction("QuestionsByQuizId", questions);
+
         }
 
         // GET: Quizzes/Edit/5

@@ -7,8 +7,8 @@ namespace BLL.Library.IRepositories
 {
     public interface IQuizQuestionsRepo
     {
-        List<AnswerModel> GetAnswersByQuizId(int QId);
+        List<QuestionsModel> GetQuestionsByQuizId(int QId);
 
-        List<AnswerModel> GetAnswersByQuizAndQuestionId(int QId, int QuestionId);
+        List<QuestionsModel> GetQuestionsByQuizAndQuestionId(int QId, int QuestionId);
     }
 }

@@ -49,14 +49,16 @@ namespace BAMTriviaProject2.DAL
         {
             QuizId = quizes.Id,
             QuizDifficulty = quizes.Difficulty,
-            QuizMaxScore = quizes.MaxScore
+            QuizMaxScore = quizes.MaxScore,
+            QuizCategory = quizes.Category
         };
 
         public QuizzesModel Map(Quiz quizes) => new QuizzesModel
         {
             Id = quizes.QuizId,
             Difficulty = quizes.QuizDifficulty,
-            MaxScore = quizes.QuizMaxScore
+            MaxScore = quizes.QuizMaxScore,
+            Category = quizes.QuizCategory
         };
 
         public QuizQuestions Map(QuizQuestionsModel qq) => new QuizQuestions

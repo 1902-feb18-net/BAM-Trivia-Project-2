@@ -69,7 +69,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             //QuizzesModel quiz = new QuizzesModel();
             //quiz.Id = 1;
 
-            return CreatedAtAction("QuestionsByQuizId", questions);
+            return CreatedAtAction(nameof(Create), questions);
 
         }
 

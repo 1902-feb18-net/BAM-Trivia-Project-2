@@ -31,10 +31,9 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         // GET: Quizzes/Create
         //[HttpGet("{Quizzes}", Name = "Create")]
         [HttpGet]
-        public async Task<ActionResult<QuizzesModel>> Create()
+        public IEnumerable<QuizzesModel> Get()
         {
-            QuizzesModel quizzes = new QuizzesModel();
-            quizzes.Id = 1;
+            IEnumerable<QuizzesModel> quizzes = quizRepo.GetAllQuizzes();
             return quizzes;
         }
 

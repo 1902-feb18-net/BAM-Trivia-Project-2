@@ -44,11 +44,11 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public List<QuizzesModel> GetAllQuizzes()
+        public IEnumerable<QuizzesModel> GetAllQuizzes()
         {
             try
             {
-                return _mapper.Map(_db.Quiz).ToList();
+                return _mapper.Map(_db.Quiz);
             }
             catch (SqlException ex)
             {

@@ -1,11 +1,13 @@
 ﻿using BLL.Library.IRepositories;
 using BLL.Library.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -25,11 +27,11 @@ namespace BAMTriviaProject2.DAL.Repositories
         }
 
         // public List<QuestionsModel> GetQuestionByCategory(string category)
-        public List<AnswerModel> GetAnswerByQuestion(int questionId)
+        public async Task<IEnumerable<AnswerModel>> GetAnswerByQuestion(int questionId)
         {
             try
             {
-                return _mapper.Map(Context.Answers.Where(c => c.Qid == questionId)).ToList();
+                return _mapper.Map(await Context.Answers.Where(c => c.Qid == questionId).ToListAsync());
             }
             catch (SqlException ex)
             {

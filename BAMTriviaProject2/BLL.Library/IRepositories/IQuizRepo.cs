@@ -10,7 +10,7 @@ namespace BLL.Library.IRepositories
     {
         QuizzesModel GetQuizById(int QId);
 
-        List<QuizzesModel> GetAllQuizzes();
+        IEnumerable<QuizzesModel> GetAllQuizzes();
 
         Task<IEnumerable<QuizzesModel>> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty);
 

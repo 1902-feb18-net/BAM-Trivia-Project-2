@@ -59,7 +59,9 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             int x = random.Next(quizzes2.Count);
 
             //gets the id of the quiz to use
-            int quizId = quizzes2[x].Id;
+            //int quizId = quizzes2[x].Id; //for when it's working
+
+            int quizId = 1; //temporary
 
             //finds all questions that were on that quiz
             List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);

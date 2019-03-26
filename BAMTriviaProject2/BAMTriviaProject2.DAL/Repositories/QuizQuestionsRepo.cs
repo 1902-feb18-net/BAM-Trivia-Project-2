@@ -31,7 +31,15 @@ namespace BAMTriviaProject2.DAL.Repositories
                 List<QuizQuestionsModel> quizQuestions = _mapper.Map(_db.QuizQuestions.Where(q => q.QuizId == QId)).ToList();
                 List<QuestionsModel> questions = _mapper.Map(_db.Questions).ToList();
                 QuestionsModel question = new QuestionsModel();
-                var targetQuestions = quizQuestions.Join(questions, qq => qq.Qid, q => q.Id, (qq, q) => question).ToList();
+                var targetQuestions = quizQuestions.Join(questions, qq => qq.Qid, q => q.Id, (qq, q) => new QuestionsModel()
+                {
+                    Id = q.Id,
+                    AverageReview = q.AverageReview,
+                    Category = q.Category,
+                    Qstring = q.Qstring,
+                    Rating = q.Rating,
+                    Type = q.Type
+                }).ToList();
                 return targetQuestions;
             }
             catch (SqlException ex)

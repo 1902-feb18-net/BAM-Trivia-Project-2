@@ -23,52 +23,52 @@ namespace BAMTriviaProject2.Testing
 {
     public class UsersRepoTest
     {
-        [Fact]
-        public async void AddUserAsync()
-        {
-            // Arrange
+        //[Fact]
+        //public async void AddUserAsync()
+        //{
+        //    // Arrange
 
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+        //    var connection = new SqliteConnection("DataSource=:memory:");
+        //    connection.Open();
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<BAMTriviaProject2Context>()
-                    .UseSqlite(connection)
-                    .Options;
+        //    try
+        //    {
+        //        var options = new DbContextOptionsBuilder<BAMTriviaProject2Context>()
+        //            .UseSqlite(connection)
+        //            .Options;
 
-                // Create the schema in the database
-                using (var context = new BAMTriviaProject2Context(options))
-                {
-                    context.Database.EnsureCreated();
-                    IMapper mapper = new Mapper();
+        //        // Create the schema in the database
+        //        using (var context = new BAMTriviaProject2Context(options))
+        //        {
+        //            context.Database.EnsureCreated();
+        //            IMapper mapper = new Mapper();
 
-                    UsersModel newUser = new UsersModel
-                    {
-                        FirstName = "Bob1234kfh",
-                        LastName = "Jonesasdfs3",
-                        PW = "a",
-                        Username = "bJonesOreoCookie",
-                        CreditCardNumber = 2,
-                        PointTotal = 0,
-                        AccountType = false
-                    };
+        //            UsersModel newUser = new UsersModel
+        //            {
+        //                FirstName = "Bob1234kfh",
+        //                LastName = "Jonesasdfs3",
+        //                PW = "a",
+        //                Username = "bJonesOreoCookie",
+        //                CreditCardNumber = 2,
+        //                PointTotal = 0,
+        //                AccountType = false
+        //            };
 
-                    context.Tusers.Add(mapper.Map(newUser));
-                    var user = context.Tusers
-                        .Where(u => u.Username == "bJonesOreoCookie");
+        //            context.Tusers.Add(mapper.Map(newUser));
+        //            var user = context.Tusers
+        //                .Where(u => u.Username == "bJonesOreoCookie");
 
-                    Assert.True(user != null);
+        //            Assert.True(user != null);
 
-                }
+        //        }
 
 
 
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
     }
 }

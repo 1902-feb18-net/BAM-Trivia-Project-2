@@ -42,6 +42,7 @@ namespace BAMTriviaProject2.WebAPI
 
             services.AddScoped<IQuizRepo, QuizRepo>();
             services.AddScoped<IQuizQuestionsRepo, QuizQuestionsRepo>();
+            services.AddScoped<IAnswersRepo, AnswersRepo>();
 
             services.AddSingleton<IMapper, Mapper>();
 

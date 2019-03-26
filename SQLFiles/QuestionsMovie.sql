@@ -1,7 +1,8 @@
 -- SELECT Statements
 
 SELECT *
-FROM TP2.Questions
+FROM TP2.Questions as q
+Where q.QCategory = 'Movie';
 
 SELECT *
 FROM TP2.Answers

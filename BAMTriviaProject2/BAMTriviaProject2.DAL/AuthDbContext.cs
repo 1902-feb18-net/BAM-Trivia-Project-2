@@ -11,5 +11,7 @@ namespace BAMTriviaProject2.DAL
     {
         public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         { }
+
+        
     }
 }

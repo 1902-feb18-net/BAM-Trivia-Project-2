@@ -1,6 +1,7 @@
 ﻿using BLL.Library.IRepositories;
 using BLL.Library.Models;
 using Microsoft.Extensions.Logging;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -53,5 +54,22 @@ namespace BAMTriviaProject2.DAL.Repositories
             return 0.0;
         }
 
+        public UserQuizzesModel GetLastQuiz()
+        {
+            try
+            {
+                return _mapper.Map(_db.UserQuizzes.MaxBy(r => r.QuizDate).First());
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
     }
 }

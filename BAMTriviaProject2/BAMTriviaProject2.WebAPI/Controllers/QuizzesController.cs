@@ -15,19 +15,22 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     public class QuizzesController : ControllerBase
     {
         private readonly ILogger<QuizzesController> _logger;
-
         public IQuizRepo quizRepo { get; set; }
-
+        public IUserQuizzesRepo _userQuizzesRepo { get; set; }
         public IQuizQuestionsRepo quizQuestionRepo { get; set; }
+        public IAnswersRepo _answersRepo { get; set; }
 
-        public IAnswersRepo answersRepo { get; set; }
-
-        public QuizzesController(IQuizRepo _quizRepo, IQuizQuestionsRepo _quizQuestionRepo, IAnswersRepo _answersRepo, ILogger<QuizzesController> logger)
+        public QuizzesController(IQuizRepo _quizRepo,
+            IUserQuizzesRepo userQuizzesRepo,
+            IQuizQuestionsRepo _quizQuestionRepo,
+            IAnswersRepo answersRepo,
+            ILogger<QuizzesController> logger)
         {
             quizRepo = _quizRepo;
+            _userQuizzesRepo = userQuizzesRepo;
             _logger = logger;
             quizQuestionRepo = _quizQuestionRepo;
-            answersRepo = _answersRepo;
+            _answersRepo = answersRepo;
         }
 
 
@@ -40,8 +43,24 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return quizzes;
         }
 
+        [HttpGet]
+        [Route("Latest")]
+        public UserQuizzesModel GetLastQuiz()
+        {
+            UserQuizzesModel quiz = _userQuizzesRepo.GetLastQuiz();
+            return quiz;
+        }
 
-        // GET: Quizzes/Find/5
+        [HttpGet]
+        [Route("{id}/Answers")]
+        public IEnumerable<AnswerModel> GetQuizAnswers(int id)
+        {
+            IEnumerable<AnswerModel> answers = _answersRepo.GetQuizAnswers(id);
+            return answers;
+        }
+
+
+        //GET: Quizzes/Find/5
         [HttpGet("{id}", Name = "GetQuizById")]
         public ActionResult<QuizzesModel> Find(int id)
         {
@@ -76,23 +95,23 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         // POST: Quizzes/Answers
-        [HttpPost("Answers")]
-        public async Task<ActionResult> Answer([FromBody] List<QuestionsModel> quizQuestions)
-        {
-            List<AnswerModel> answers = new List<AnswerModel>();
-            ;
-            for (int i = 0; i < quizQuestions.Count; i++)
-            {
-                IEnumerable<AnswerModel> Ianswers = await answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
-                foreach (var item in Ianswers)
-                {
-                    answers.Add(item);
-                }
-            }
+        //[HttpPost("Answers")]
+        //public async Task<ActionResult> Answer([FromBody] List<QuestionsModel> quizQuestions)
+        //{
+        //    List<AnswerModel> answers = new List<AnswerModel>();
+        //    ;
+        //    for (int i = 0; i < quizQuestions.Count; i++)
+        //    {
+        //        IEnumerable<AnswerModel> Ianswers = await _answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
+        //        foreach (var item in Ianswers)
+        //        {
+        //            answers.Add(item);
+        //        }
+        //    }
 
-            return CreatedAtAction(nameof(Answer), answers);
+        //    return CreatedAtAction(nameof(Answer), answers);
 
-        }
+        //}
 
         // GET: Quizzes/Edit/5
         [HttpPut("{id}", Name = "EditQuizById")]

@@ -68,13 +68,13 @@ steps:
   workingDirectory: $(solutionDir)
   displayName: Publish
 
-# - task: AzureRmWebAppDeployment@4
-#   displayName: Azure App Service deploy
-#   inputs:
-#     azureSubscription: nick-azure
-#     WebAppName: escalona1902charapi
-#     packageForLinux: $(Build.ArtifactStagingDirectory)/publish
-#   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+- task: AzureRmWebAppDeployment@4
+  displayName: Azure App Service deploy
+  inputs:
+    azureSubscription: 'Free Trial (74f13f66-859f-4fdc-8afa-2eabf78271b5)'
+    WebAppName: BAM1902trivia
+    packageForLinux: $(Build.ArtifactStagingDirectory)/publish
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'

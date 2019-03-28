@@ -15,16 +15,19 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     public class QuizzesController : ControllerBase
     {
         private readonly ILogger<QuizzesController> _logger;
-
         public IQuizRepo quizRepo { get; set; }
-
+        public IUserQuizzesRepo _userQuizzesRepo { get; set; }
         public IQuizQuestionsRepo quizQuestionRepo { get; set; }
-
         public IAnswersRepo answersRepo { get; set; }
 
-        public QuizzesController(IQuizRepo _quizRepo, IQuizQuestionsRepo _quizQuestionRepo, IAnswersRepo _answersRepo, ILogger<QuizzesController> logger)
+        public QuizzesController(IQuizRepo _quizRepo, 
+            IUserQuizzesRepo userQuizzesRepo,
+            IQuizQuestionsRepo _quizQuestionRepo, 
+            IAnswersRepo _answersRepo, 
+            ILogger<QuizzesController> logger)
         {
             quizRepo = _quizRepo;
+            _userQuizzesRepo = userQuizzesRepo;
             _logger = logger;
             quizQuestionRepo = _quizQuestionRepo;
             answersRepo = _answersRepo;
@@ -40,8 +43,17 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return quizzes;
         }
 
+        [HttpGet]
+        [Route("Latest")]
+        public UserQuizzesModel GetLastQuiz()
+        {
+            var x = 5;
+            UserQuizzesModel quiz = _userQuizzesRepo.GetLastQuiz();
+            return quiz;
+        }
 
-        // GET: Quizzes/Find/5
+
+        //GET: Quizzes/Find/5
         [HttpGet("{id}", Name = "GetQuizById")]
         public ActionResult<QuizzesModel> Find(int id)
         {

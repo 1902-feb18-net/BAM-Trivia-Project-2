@@ -77,4 +77,7 @@ steps:
 #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish artifact
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
+  condition: succeededOrFailed()

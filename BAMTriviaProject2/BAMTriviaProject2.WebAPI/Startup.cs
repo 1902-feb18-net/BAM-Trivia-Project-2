@@ -42,9 +42,9 @@ namespace BAMTriviaProject2.WebAPI
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    //builder.WithOrigins("http://localhost:44338",
+                    //builder.WithOrigins("http://localhost:4200",
                     //                    "http://www.someExample.com");
-                    builder.WithOrigins("http://localhost:44338");
+                    builder.WithOrigins("http://localhost:4200");
                         //.AllowAnyHeader()
                         //.AllowAnyMethod();
                 });

@@ -37,4 +37,23 @@ INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
 
 -- question reviews
 INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
-	(51, null, 5, 8),
+	(51, null, 5, 2),
+	(51, null, 6, 3),
+	(51, null, 8, 4),
+	(51, null, 9, 6),
+	(56, null, 5, 3),
+	(56, null, 6, 4),
+	(56, null, 8, 5),
+	(56, null, 9, 7),
+	(61, null, 5, 1),
+	(61, null, 6, 4),
+	(61, null, 8, 5),
+	(61, null, 9, 7),
+	(66, null, 5, 8),
+	(66, null, 6, 7),
+	(66, null, 8, 5),
+	(66, null, 9, 4),
+	(71, null, 5, 5),
+	(71, null, 6, 7),
+	(71, null, 8, 3),
+	(71, null, 9, 2);

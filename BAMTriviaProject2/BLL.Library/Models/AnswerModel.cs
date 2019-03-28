@@ -11,6 +11,9 @@ namespace BLL.Library.Models
         public int Id { get; set; }
         public int QuestionId { get; set; }
 
+        public string QuestionText { get; set; } = "";
+
+
         [Required]
         [MaxLength(500)]
         public string Answer { get; set; }

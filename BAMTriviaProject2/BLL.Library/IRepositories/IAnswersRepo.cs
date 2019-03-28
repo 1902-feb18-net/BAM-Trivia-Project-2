@@ -10,6 +10,7 @@ namespace BLL.Library.IRepositories
     {
         AnswerModel GetAnswerById(int answerId);
         Task<IEnumerable<AnswerModel>> GetAnswerByQuestion(int questionId);
+        List<AnswerModel> GetQuizAnswers(int quizId);
         void AddAnswer(AnswerModel answer);
         void DeleteAnswer(int Id);
         void Save();

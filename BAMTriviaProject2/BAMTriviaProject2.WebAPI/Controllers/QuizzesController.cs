@@ -20,11 +20,14 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         public IQuizQuestionsRepo quizQuestionRepo { get; set; }
 
-        public QuizzesController(IQuizRepo _quizRepo, IQuizQuestionsRepo _quizQuestionRepo, ILogger<QuizzesController> logger)
+        public IAnswersRepo answersRepo { get; set; }
+
+        public QuizzesController(IQuizRepo _quizRepo, IQuizQuestionsRepo _quizQuestionRepo, IAnswersRepo _answersRepo, ILogger<QuizzesController> logger)
         {
             quizRepo = _quizRepo;
             _logger = logger;
             quizQuestionRepo = _quizQuestionRepo;
+            answersRepo = _answersRepo;
         }
 
 
@@ -69,6 +72,25 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             //quiz.Id = 1;
 
             return CreatedAtAction(nameof(Create), questions);
+
+        }
+
+        // POST: Quizzes/Answers
+        [HttpPost("Answers")]
+        public async Task<ActionResult> Answer([FromBody] List<QuestionsModel> quizQuestions)
+        {
+            List<AnswerModel> answers = new List<AnswerModel>();
+            ;
+            for (int i = 0; i < quizQuestions.Count; i++)
+            {
+                IEnumerable<AnswerModel> Ianswers = await answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
+                foreach (var item in Ianswers)
+                {
+                    answers.Add(item);
+                }
+            }
+
+            return CreatedAtAction(nameof(Answer), answers);
 
         }
 

@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Library.IRepositories
 {
     public interface IAnswersRepo
     {
         AnswerModel GetAnswerById(int answerId);
-        List<AnswerModel> GetAnswerByQuestion(int questionId);
+        Task<IEnumerable<AnswerModel>> GetAnswerByQuestion(int questionId);
         void AddAnswer(AnswerModel answer);
         void DeleteAnswer(int Id);
         void Save();

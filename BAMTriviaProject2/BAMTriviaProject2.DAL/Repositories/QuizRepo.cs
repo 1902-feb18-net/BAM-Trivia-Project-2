@@ -44,6 +44,8 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+        
+
         public IEnumerable<QuizzesModel> GetAllQuizzes()
         {
             try

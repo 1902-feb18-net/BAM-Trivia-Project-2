@@ -28,11 +28,28 @@ namespace BAMTriviaProject2.WebAPI
             Configuration = configuration;
         }
 
+        // from https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.2 to set up CORS
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // adds CORS services to the app's service container:
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    //builder.WithOrigins("http://localhost:4200",
+                    //                    "http://www.someExample.com");
+                    builder.WithOrigins("http://localhost:4200");
+                        //.AllowAnyHeader()
+                        //.AllowAnyMethod();
+                });
+            });
+
             services.AddScoped<IUsersRepo, UsersRepo>();
 
             // add question into scope
@@ -41,6 +58,8 @@ namespace BAMTriviaProject2.WebAPI
             services.AddScoped<IAnswersRepo, AnswersRepo>();
 
             services.AddScoped<IQuizRepo, QuizRepo>();
+            services.AddScoped<IUserQuizzesRepo, UserQuizesRepo>();
+
             services.AddScoped<IQuizQuestionsRepo, QuizQuestionsRepo>();
             services.AddScoped<IAnswersRepo, AnswersRepo>();
 
@@ -116,6 +135,8 @@ namespace BAMTriviaProject2.WebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(MyAllowSpecificOrigins); 
 
             app.UseSwagger();
 

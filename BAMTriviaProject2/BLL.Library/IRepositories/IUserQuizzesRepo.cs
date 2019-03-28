@@ -10,6 +10,7 @@ namespace BLL.Library.IRepositories
         List<UserQuizzesModel> GetUserQuizesByUser(int userId);
 
         List<UserQuizzesModel> GetUserQuizesByQuiz(int QId);
+        UserQuizzesModel GetLastQuiz();
 
         double GetMaxScoreOfQuiz(QuizzesModel quiz);
     }

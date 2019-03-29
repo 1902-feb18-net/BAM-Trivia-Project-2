@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Library.IRepositories
 {
@@ -11,6 +12,6 @@ namespace BLL.Library.IRepositories
         void AddQuestion(QuestionsModel question);
         List<QuestionsModel> GetQuestionByCategory(string category);
         List<QuestionsModel> GetQuestionByDifficulty(int difficulty);
-        List<QuestionsModel> GetQuestionByDifficultyAndCategory(int difficulty, string category);
+        Task<List<QuestionsModel>> GetQuestionByDifficultyAndCategory(int difficulty, string category);
     }
 }

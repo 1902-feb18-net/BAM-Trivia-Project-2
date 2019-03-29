@@ -30,7 +30,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         {
             //return questionsRepo.GetQuestionByCategory("Movie");
             //return questionsRepo.GetQuestionByDifficulty(5);
-            return questionsRepo.GetQuestionByDifficultyAndCategory(1, "Movie");
+            return questionsRepo.GetQuestionByDifficultyAndCategory(1, "Movie").Result;
         }
 
         // GET: api/Questions/5

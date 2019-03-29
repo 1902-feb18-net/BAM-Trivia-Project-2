@@ -110,29 +110,29 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             // Get some random quiz questions based upon difficulty
             int numQuestions = 10;
             List<QuestionsModel> questions1 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                 quiz.Difficulty, quiz.Category).ToList();
+                 quiz.Difficulty, quiz.Category).Result;
             List<QuestionsModel> questions2 = new List<QuestionsModel>();
             List<QuestionsModel> questions3 = new List<QuestionsModel>();
             if (quiz.Difficulty == 1)
             {
                 questions2 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                3, quiz.Category).ToList();
+                3, quiz.Category).Result;
             }
             else
             {
                 questions2 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                quiz.Difficulty - 1, quiz.Category).ToList();
+                quiz.Difficulty - 1, quiz.Category).Result;
             }
 
             if (quiz.Difficulty == 5)
             {
                 questions3 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                3, quiz.Category).ToList();
+                3, quiz.Category).Result;
             }
             else
             {
                 questions3 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                quiz.Difficulty + 1, quiz.Category).ToList();
+                quiz.Difficulty + 1, quiz.Category).Result;
             }
             List<QuestionsModel> quizQuestionsPool = new List<QuestionsModel>();
             foreach (var item in questions1)
@@ -150,13 +150,15 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             List<QuestionsModel> quizQuestions = new List<QuestionsModel>();
             int randNum;
-            int rem;
             for (int i = 0; i < numQuestions; i++)
             {
-                rem = i % 3 + 1;
-                randNum = random.Next() % 5;
-                quizQuestions.Add(quizQuestionsPool[i]);
-                quizQuestionsPool.Remove(quizQuestionsPool[i]);
+                randNum = random.Next() % (15 - i);
+                //if (quizQuestionsPool[i] != )
+                //{
+
+                //}
+                quizQuestions.Add(quizQuestionsPool[randNum]);
+                quizQuestionsPool.RemoveAt(randNum);
             }
 
             await quizRepo.AddQuiz(quiz);

@@ -8,9 +8,10 @@ namespace BLL.Library.IRepositories
 {
     public interface IQuizRepo
     {
+        Task<int> AddQuiz(QuizzesModel quiz);
         QuizzesModel GetQuizById(int QId);
         IEnumerable<QuizzesModel> GetAllQuizzes();
         Task<IEnumerable<QuizzesModel>> GetAllQuizesByCategoryAndDifficulty(string category, int difficulty);
-
+        int GetLastQuizId();
     }
 }

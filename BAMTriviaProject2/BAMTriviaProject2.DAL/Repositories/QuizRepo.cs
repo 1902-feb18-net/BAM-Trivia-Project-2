@@ -25,6 +25,32 @@ namespace BAMTriviaProject2.DAL.Repositories
             _mapper = mapper;
         }
 
+        public async Task<int> SaveChangesAndCheckException()
+        {
+            try
+            {
+                _db.SaveChanges();
+                return 0;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
+        }
+
+        public async Task<int> AddQuiz(QuizzesModel quiz)
+        {
+            var newQuiz = _mapper.Map(quiz);
+            _db.Quiz.Add(newQuiz);
+            return await SaveChangesAndCheckException();
+        }
+
         public QuizzesModel GetQuizById(int QId)
         {
 
@@ -84,5 +110,24 @@ namespace BAMTriviaProject2.DAL.Repositories
                 return null;
             }
         }
+
+        public int GetLastQuizId()
+        {
+            try
+            {
+                return _db.Quiz.Max(q => q.QuizId);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+        }
+
     }
 }

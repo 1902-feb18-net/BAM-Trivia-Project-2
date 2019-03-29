@@ -63,6 +63,8 @@ namespace BAMTriviaProject2.WebAPI
             // add answers into scope
             services.AddScoped<IAnswersRepo, AnswersRepo>();
 
+            services.AddScoped<IReviewRepo, ReviewRepo>();
+
             services.AddScoped<IQuizRepo, QuizRepo>();
             services.AddScoped<IUserQuizzesRepo, UserQuizesRepo>();
 

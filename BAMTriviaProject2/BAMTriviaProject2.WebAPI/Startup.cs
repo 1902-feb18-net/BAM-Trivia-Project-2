@@ -39,14 +39,20 @@ namespace BAMTriviaProject2.WebAPI
             // adds CORS services to the app's service container:
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
+                options.AddPolicy("AllowAll",
                 builder =>
                 {
-                    //builder.WithOrigins("http://localhost:4200",
-                    //                    "http://www.someExample.com");
-                    builder.WithOrigins("http://localhost:4200");
-                        //.AllowAnyHeader()
-                        //.AllowAnyMethod();
+                    // for dev scenario, we can be pretty tolerant
+                    // in prod, we should be restrictive, we would fill in
+                    // only the origins where our Angular app was hosted.
+                    builder.WithOrigins(new[]
+                    {
+                        "http://localhost:4200",
+                        //"http://escalona1902pokeangular.azurewebsites.net"
+                    })
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
@@ -136,7 +142,7 @@ namespace BAMTriviaProject2.WebAPI
                 app.UseHsts();
             }
 
-            app.UseCors(MyAllowSpecificOrigins); 
+            app.UseCors("AllowAll");//MyAllowSpecificOrigins); 
 
             app.UseSwagger();
 

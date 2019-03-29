@@ -84,9 +84,9 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             int x = random.Next(quizzes2.Count);
 
             //gets the id of the quiz to use
-            //int quizId = quizzes2[x].Id; //for when it's working
+            int quizId = quizzes2[x].Id; //for when it's working
 
-            int quizId = 1; //temporary
+            //int quizId = 1; //temporary
 
             //finds all questions that were on that quiz
             List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
@@ -163,13 +163,14 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             await quizRepo.AddQuiz(quiz);
             int lastQuizId = quizRepo.GetLastQuizId();
+            quiz.Id = lastQuizId;
 
             for (int i = 0; i < quizQuestions.Count(); i++)
             {
                 await quizQuestionRepo.AddQuizQuestion(lastQuizId, quizQuestions[i].Id);
             }
 
-            return CreatedAtAction(nameof(Create), quizQuestions);
+            return CreatedAtAction(nameof(Create), quiz);
         }
 
         // POST: Quizzes/Answers

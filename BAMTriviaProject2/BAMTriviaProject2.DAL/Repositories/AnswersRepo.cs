@@ -45,6 +45,31 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+        public List<AnswerModel> GetQuizAnswers(int quizId)
+        {
+            try
+            {
+                List<QuizQuestionsModel> questions = _mapper.Map(Context.QuizQuestions.Where(c => c.QuizId == quizId)).ToList();
+                List<AnswerModel> answers = _mapper.Map(Context.Answers.Where(a => questions.Any(q => q.Qid == a.Qid))).ToList();
+                for (int i = 0; i < answers.Count(); i++)
+                {
+                    answers[i].QuestionText = Context.Questions.Single(q => q.Qid == answers[i].QuestionId).Qstring;
+
+                }
+                return answers;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
         public void AddAnswer(AnswerModel answer)
         {
             var value = _mapper.Map(answer);

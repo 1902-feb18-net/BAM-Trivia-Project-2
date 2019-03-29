@@ -44,9 +44,9 @@ namespace BAMTriviaProject2.WebAPI
                 {
                     //builder.WithOrigins("http://localhost:4200",
                     //                    "http://www.someExample.com");
-                    builder.WithOrigins("http://localhost:4200");
-                        //.AllowAnyHeader()
-                        //.AllowAnyMethod();
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
             });
 

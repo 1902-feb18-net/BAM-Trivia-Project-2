@@ -81,6 +81,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         // POST /account/logout
         [HttpPost("[action]")]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await SignInManager.SignOutAsync();

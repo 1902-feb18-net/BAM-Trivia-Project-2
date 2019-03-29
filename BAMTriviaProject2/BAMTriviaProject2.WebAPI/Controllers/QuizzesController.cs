@@ -94,6 +94,45 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         }
 
+        [HttpPost]
+        [Route("Random")]
+        public async Task<ActionResult> CreateRandomQuiz(QuizzesModel quiz)
+        {
+            Random random = new Random();
+
+            // Quiz
+            //QuizzesModel newQuiz = new QuizzesModel()
+            //{
+            //    MaxScore = 10,
+            //    Difficulty = difficulty,
+            //    Category = category
+            //};
+
+
+
+            //finds all quizzes in the right category and right difficulty
+
+
+            //IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
+            //List<QuizzesModel> quizzes2 = quizzes.ToList();
+            //gets a random quiz out of the list of available ones
+            //int x = random.Next(quizzes2.Count);
+
+            //gets the id of the quiz to use
+            //int quizId = quizzes2[x].Id; //for when it's working
+
+            int quizId = 1; //temporary
+
+            //finds all questions that were on that quiz
+            List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
+
+            //QuizzesModel quiz = new QuizzesModel();
+            //quiz.Id = 1;
+
+            return CreatedAtAction(nameof(Create), questions);
+
+        }
+
         // POST: Quizzes/Answers
         //[HttpPost("Answers")]
         //public async Task<ActionResult> Answer([FromBody] List<QuestionsModel> quizQuestions)

@@ -104,7 +104,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             
             for (int i = 0; i < quizQuestions.Count; i++)
             {
-                IEnumerable<AnswerModel> Ianswers = await answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
+                IEnumerable<AnswerModel> Ianswers = await _answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
                 foreach (var item in Ianswers)
                 {
                     answers.Add(item);

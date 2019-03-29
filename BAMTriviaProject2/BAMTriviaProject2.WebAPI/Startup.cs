@@ -48,7 +48,7 @@ namespace BAMTriviaProject2.WebAPI
                     builder.WithOrigins(new[]
                     {
                         "http://localhost:4200",
-                        //"http://escalona1902pokeangular.azurewebsites.net"
+                        "https://bam1902trivia.azurewebsites.net"
                     })
                         .AllowAnyHeader()
                         .AllowAnyMethod()

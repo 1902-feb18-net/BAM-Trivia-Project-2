@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -81,7 +82,7 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public List<BLL.Library.Models.QuestionsModel> GetQuestionByDifficultyAndCategory(int difficulty, string category)
+        public async Task<List<BLL.Library.Models.QuestionsModel>> GetQuestionByDifficultyAndCategory(int difficulty, string category)
         {
             try
             {

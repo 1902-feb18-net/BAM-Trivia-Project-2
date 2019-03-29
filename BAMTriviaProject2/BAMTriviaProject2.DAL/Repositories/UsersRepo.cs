@@ -43,6 +43,24 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+        public UsersModel GetUserByName(string username)
+        {
+            try
+            {
+                return _mapper.Map(Context.Tusers.Single(u => u.Username == username));
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
         public List<UsersModel> GetAllUsers()
         {
             List<UsersModel> list = new List<UsersModel>();

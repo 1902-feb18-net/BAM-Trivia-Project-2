@@ -9,7 +9,7 @@ namespace BLL.Library.IRepositories
     public interface IUsersRepo
     {
         UsersModel GetUserById(int id);
-
+        UsersModel GetUserByName(string name);
         List<UsersModel> GetAllUsers();
         Task<UsersModel> AddAsync(UsersModel user);
     }

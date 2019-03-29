@@ -66,7 +66,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(AuthLogin login)
+        public async Task<IActionResult> Login([FromBody] AuthLogin login)
         {
             SignInResult result = await SignInManager.PasswordSignInAsync(
                 login.Username, login.Password, login.RememberMe, false);

@@ -39,14 +39,20 @@ namespace BAMTriviaProject2.WebAPI
             // adds CORS services to the app's service container:
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
+                options.AddPolicy("AllowAll",
                 builder =>
                 {
-                    //builder.WithOrigins("http://localhost:4200",
-                    //                    "http://www.someExample.com");
-                    builder.WithOrigins("http://localhost:4200")
+                    // for dev scenario, we can be pretty tolerant
+                    // in prod, we should be restrictive, we would fill in
+                    // only the origins where our Angular app was hosted.
+                    builder.WithOrigins(new[]
+                    {
+                        "http://localhost:4200",
+                        "https://bam1902trivia.azurewebsites.net"
+                    })
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
@@ -56,6 +62,8 @@ namespace BAMTriviaProject2.WebAPI
             services.AddScoped<IQuestionRepo, QuestionRepo>();
             // add answers into scope
             services.AddScoped<IAnswersRepo, AnswersRepo>();
+
+            services.AddScoped<IReviewRepo, ReviewRepo>();
 
             services.AddScoped<IQuizRepo, QuizRepo>();
             services.AddScoped<IUserQuizzesRepo, UserQuizesRepo>();
@@ -136,7 +144,7 @@ namespace BAMTriviaProject2.WebAPI
                 app.UseHsts();
             }
 
-            app.UseCors(MyAllowSpecificOrigins); 
+            app.UseCors("AllowAll");//MyAllowSpecificOrigins); 
 
             app.UseSwagger();
 

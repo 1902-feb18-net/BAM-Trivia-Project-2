@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -22,6 +23,25 @@ namespace BAMTriviaProject2.DAL.Repositories
             _db = dbContext;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public async Task<int> SaveChangesAndCheckException()
+        {
+            try
+            {
+                _db.SaveChanges();
+                return 0;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
         }
 
         public List<QuestionsModel> GetQuestionsByQuizId(int QId)
@@ -59,5 +79,21 @@ namespace BAMTriviaProject2.DAL.Repositories
             List<QuestionsModel> list = new List<QuestionsModel>();
             return list;
         }
+
+        public async Task<int> AddQuizQuestion(int quizId, int questionId)
+        {
+            QuizQuestionsModel newQuizQuestion = new QuizQuestionsModel
+            {
+                QuizId = quizId,
+                Qid = questionId
+            };
+
+            var newQuizQuestionDAL = _mapper.Map(newQuizQuestion);
+            _db.QuizQuestions.Add(newQuizQuestionDAL);
+            return await SaveChangesAndCheckException();
+
+        }
+
+
     }
 }

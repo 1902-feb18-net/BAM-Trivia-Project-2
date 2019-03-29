@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -23,6 +24,25 @@ namespace BAMTriviaProject2.DAL.Repositories
             _db = dbContext;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public async Task<int> SaveChangesAndCheckException()
+        {
+            try
+            {
+                _db.SaveChanges();
+                return 0;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
         }
 
         public List<UserQuizzesModel> GetUserQuizesByUser(int userId)
@@ -69,6 +89,31 @@ namespace BAMTriviaProject2.DAL.Repositories
             {
                 _logger.LogError(ex.ToString());
                 return null;
+            }
+        }
+
+        public async Task<int> AddUserQuiz(UserQuizzesModel userQuizzesModel)
+        {
+            var newUserQuiz = _mapper.Map(userQuizzesModel);
+            _db.UserQuizzes.Add(newUserQuiz);
+            return await SaveChangesAndCheckException();
+        }
+
+        public async Task<int> GetLastUserQuizId(int userId)
+        {
+            try
+            {
+                return _db.UserQuizzes.Where(uq => uq.UserId == userId).Max(uq => uq.UserQuizId);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
             }
         }
     }

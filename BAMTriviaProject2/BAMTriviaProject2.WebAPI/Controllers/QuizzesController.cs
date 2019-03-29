@@ -20,13 +20,14 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         public IQuizQuestionsRepo quizQuestionRepo { get; set; }
         public IAnswersRepo _answersRepo { get; set; }
         public IQuestionRepo _questionsRepo { get; set; }
-
+        public IUsersRepo _usersRepo { get; set; }
 
         public QuizzesController(IQuizRepo _quizRepo,
             IUserQuizzesRepo userQuizzesRepo,
             IQuizQuestionsRepo _quizQuestionRepo,
             IAnswersRepo answersRepo,
             IQuestionRepo questionsRepo,
+            IUsersRepo usersRepo,
             ILogger<QuizzesController> logger)
         {
             quizRepo = _quizRepo;
@@ -34,9 +35,9 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             _logger = logger;
             quizQuestionRepo = _quizQuestionRepo;
             _answersRepo = answersRepo;
+            _usersRepo = usersRepo;
             _questionsRepo = questionsRepo;
         }
-
 
         // GET: Quizzes/Create
         //[HttpGet("{Quizzes}", Name = "Create")]
@@ -63,7 +64,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return answers;
         }
 
-
         //GET: Quizzes/Find/5
         [HttpGet("{id}", Name = "GetQuizById")]
         public ActionResult<QuizzesModel> Find(int id)
@@ -75,7 +75,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] QuizzesModel quizzesModel)
         {
-
             //finds all quizzes in the right category and right difficulty
             IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
             List<QuizzesModel> quizzes2 = quizzes.ToList();
@@ -95,7 +94,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             //quiz.Id = 1;
 
             return CreatedAtAction(nameof(Create), questions);
-
         }
 
         [HttpPost]
@@ -109,31 +107,33 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             // Get some random quiz questions based upon difficulty
             int numQuestions = 10;
-            List<QuestionsModel> questions1 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                 quiz.Difficulty, quiz.Category).Result;
+
+            List<QuestionsModel> categoryQuestions = _questionsRepo.GetQuestionByCategory(quiz.Category);
+
+            List<QuestionsModel> questions1 = new List<QuestionsModel>();
+            //_questionsRepo.GetQuestionByDifficultyAndCategory(
+            // quiz.Difficulty, quiz.Category).Result;
             List<QuestionsModel> questions2 = new List<QuestionsModel>();
             List<QuestionsModel> questions3 = new List<QuestionsModel>();
             if (quiz.Difficulty == 1)
             {
-                questions2 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                3, quiz.Category).Result;
+                questions1 = categoryQuestions.Where(cq => cq.Rating == 1).ToList();
+                questions2 = categoryQuestions.Where(cq => cq.Rating == 2).ToList();
+                questions3 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
+            }
+            else if (quiz.Difficulty == 3)
+            {
+                questions1 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
+                questions2 = categoryQuestions.Where(cq => cq.Rating == 4).ToList();
+                questions3 = categoryQuestions.Where(cq => cq.Rating == 5).ToList();
             }
             else
             {
-                questions2 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                quiz.Difficulty - 1, quiz.Category).Result;
+                questions1 = categoryQuestions.Where(cq => cq.Rating == 2).ToList();
+                questions2 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
+                questions3 = categoryQuestions.Where(cq => cq.Rating == 4).ToList();
             }
-
-            if (quiz.Difficulty == 5)
-            {
-                questions3 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                3, quiz.Category).Result;
-            }
-            else
-            {
-                questions3 = _questionsRepo.GetQuestionByDifficultyAndCategory(
-                quiz.Difficulty + 1, quiz.Category).Result;
-            }
+            
             List<QuestionsModel> quizQuestionsPool = new List<QuestionsModel>();
             foreach (var item in questions1)
             {
@@ -153,23 +153,20 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             for (int i = 0; i < numQuestions; i++)
             {
                 randNum = random.Next() % (15 - i);
-                //if (quizQuestionsPool[i] != )
-                //{
-
-                //}
                 quizQuestions.Add(quizQuestionsPool[randNum]);
                 quizQuestionsPool.RemoveAt(randNum);
             }
 
             await quizRepo.AddQuiz(quiz);
             int lastQuizId = quizRepo.GetLastQuizId();
+            quiz.Id = lastQuizId;
 
             for (int i = 0; i < quizQuestions.Count(); i++)
             {
                 await quizQuestionRepo.AddQuizQuestion(lastQuizId, quizQuestions[i].Id);
             }
 
-            return CreatedAtAction(nameof(Create), quizQuestions);
+            return CreatedAtAction(nameof(Create), quiz);
         }
 
         // POST: Quizzes/Answers
@@ -190,6 +187,30 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             }
 
             return CreatedAtAction(nameof(Answer), answers);
+        }
+
+        [HttpPost]
+        [Route("/Users/{username}/Quizzes/")]
+        //[ProducesResponseType(typeof(List<AnswerModel>), StatusCodes.Status201Created)]
+        public async Task<ActionResult> UserQuiz([FromBody] UserQuizzesModel userQuizzesModel)
+        {
+            UsersModel currentUser = _usersRepo.GetUserByName(userQuizzesModel.Username);
+
+            await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
+            int lastUserQuizId = await _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);
+            userQuizzesModel.UserId = currentUser.UserId;
+            userQuizzesModel.UserQuizId = lastUserQuizId;
+
+            //for (int i = 0; i < quizQuestions.Count; i++)
+            //{
+            //    IEnumerable<AnswerModel> Ianswers = await _answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
+            //    foreach (var item in Ianswers)
+            //    {
+            //        answers.Add(item);
+            //    }
+            //}
+
+            return CreatedAtAction(nameof(Answer), userQuizzesModel);
         }
 
         // GET: Quizzes/Edit/5

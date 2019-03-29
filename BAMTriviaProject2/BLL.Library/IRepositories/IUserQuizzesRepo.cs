@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Library.IRepositories
 {
@@ -11,6 +12,8 @@ namespace BLL.Library.IRepositories
 
         List<UserQuizzesModel> GetUserQuizesByQuiz(int QId);
         UserQuizzesModel GetLastQuiz();
+        Task<int> AddUserQuiz(UserQuizzesModel newUserQuizzesModel);
+        Task<int> GetLastUserQuizId(int userId);
 
         double GetMaxScoreOfQuiz(QuizzesModel quiz);
     }

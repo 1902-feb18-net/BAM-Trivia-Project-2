@@ -7,10 +7,12 @@ namespace BLL.Library.IRepositories
 {
     public interface IReviewRepo
     {
-        List<ReviewsModel> GetReviewsByQuizId(int QId);
+        List<ReviewsModel> GetReviewsByQuizId(int quizId);
 
         List<ReviewsModel> GetReviewsByQuestionId(int questionId);
 
-        List<ReviewsModel> GetReviewsByUser(int userId);
+        List<ReviewsModel> GetReviewsByUserId(int userId);
+
+        IEnumerable<ReviewsModel> GetAllReviews();
     }
 }

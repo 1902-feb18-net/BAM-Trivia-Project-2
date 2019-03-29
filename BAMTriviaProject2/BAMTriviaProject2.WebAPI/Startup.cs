@@ -44,9 +44,9 @@ namespace BAMTriviaProject2.WebAPI
                 {
                     //builder.WithOrigins("http://localhost:4200",
                     //                    "http://www.someExample.com");
-                    builder.WithOrigins("http://localhost:4200");
-                        //.AllowAnyHeader()
-                        //.AllowAnyMethod();
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
             });
 
@@ -56,6 +56,8 @@ namespace BAMTriviaProject2.WebAPI
             services.AddScoped<IQuestionRepo, QuestionRepo>();
             // add answers into scope
             services.AddScoped<IAnswersRepo, AnswersRepo>();
+
+            services.AddScoped<IReviewRepo, ReviewRepo>();
 
             services.AddScoped<IQuizRepo, QuizRepo>();
             services.AddScoped<IUserQuizzesRepo, UserQuizesRepo>();

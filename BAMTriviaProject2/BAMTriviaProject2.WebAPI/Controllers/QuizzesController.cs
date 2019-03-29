@@ -95,23 +95,24 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         // POST: Quizzes/Answers
-        //[HttpPost("Answers")]
-        //public async Task<ActionResult> Answer([FromBody] List<QuestionsModel> quizQuestions)
-        //{
-        //    List<AnswerModel> answers = new List<AnswerModel>();
-        //    ;
-        //    for (int i = 0; i < quizQuestions.Count; i++)
-        //    {
-        //        IEnumerable<AnswerModel> Ianswers = await _answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
-        //        foreach (var item in Ianswers)
-        //        {
-        //            answers.Add(item);
-        //        }
-        //    }
 
-        //    return CreatedAtAction(nameof(Answer), answers);
+        [HttpPost("Answers")]
+        //[ProducesResponseType(typeof(List<AnswerModel>), StatusCodes.Status201Created)]
+        public async Task<ActionResult> Answer([FromBody] List<QuestionsModel> quizQuestions)
+        {
+            List<AnswerModel> answers = new List<AnswerModel>();
+            
+            for (int i = 0; i < quizQuestions.Count; i++)
+            {
+                IEnumerable<AnswerModel> Ianswers = await answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
+                foreach (var item in Ianswers)
+                {
+                    answers.Add(item);
+                }
+            }
 
-        //}
+            return CreatedAtAction(nameof(Answer), answers);
+        }
 
         // GET: Quizzes/Edit/5
         [HttpPut("{id}", Name = "EditQuizById")]

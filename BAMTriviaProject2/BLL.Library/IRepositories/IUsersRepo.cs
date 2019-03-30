@@ -8,6 +8,7 @@ namespace BLL.Library.IRepositories
 {
     public interface IUsersRepo
     {
+        int GetUserId(string name);
         UsersModel GetUserById(int id);
         UsersModel GetUserByName(string name);
         List<UsersModel> GetAllUsers();

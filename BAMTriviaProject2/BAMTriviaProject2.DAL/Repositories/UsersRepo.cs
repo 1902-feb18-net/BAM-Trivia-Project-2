@@ -43,6 +43,24 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+        public int GetUserId(string name)
+        {
+            try
+            {
+                return _mapper.Map(Context.Tusers.Single(u => u.Username == name)).UserId;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+        }
+
         public UsersModel GetUserByName(string username)
         {
             try

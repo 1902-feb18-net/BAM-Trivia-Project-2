@@ -68,6 +68,19 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return details;
         }
 
+        [HttpGet]
+        [Route("Account")]
+        public UsersModel GetDetails()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                //_logger.LogInformation("");
+                return null;
+            }
+            UsersModel details = _usersRepo.GetUserById(_usersRepo.GetUserId(User.Identity.Name));
+            return details;
+        }
+
         [HttpPost("[action]")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] AuthLogin login)

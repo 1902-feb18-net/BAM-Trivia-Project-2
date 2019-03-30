@@ -59,6 +59,12 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return reviews;
         }
 
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+
         //// POST: api/Reviews
         //[HttpPost]
         //public void Post([FromBody] string value)
@@ -71,10 +77,5 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         //{
         //}
 
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

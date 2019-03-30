@@ -19,20 +19,23 @@ using System.Security.Claims;
 namespace BAMTriviaProject2.WebAPI.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [AllowAnonymous]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public IUsersRepo usersRepo { get; set; }
+        public IUsersRepo _usersRepo { get; set; }
+        public IUserQuizzesRepo _userQuizzesRepo { get; set; }
         public SignInManager<IdentityUser> SignInManager { get; }
         private readonly ILogger<UsersController> _logger;
 
         public UsersController(IUsersRepo newUsersRepo, 
+            IUserQuizzesRepo newUserQuizzesRepo,
             SignInManager<IdentityUser> signInManager,
             AuthDbContext dbContext,
             ILogger<UsersController> logger)
         {
-            usersRepo = newUsersRepo;
+            _usersRepo = newUsersRepo;
+            _userQuizzesRepo = newUserQuizzesRepo;
             SignInManager = signInManager;
             _logger = logger;
 
@@ -56,6 +59,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             }
             var details = new AuthAccountDetails
             {
+                UserId = _usersRepo.GetUserId(User.Identity.Name),
                 Username = User.Identity.Name,
                 AccountType = User.IsInRole("admin"),
                 Roles = User.Claims.Where(c => c.Type == ClaimTypes.Role)
@@ -88,6 +92,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             return NoContent();
         }
+
 
         // POST /account
         [HttpPost("[action]")]
@@ -131,7 +136,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             await SignInManager.SignInAsync(user, false);
 
-            await usersRepo.AddAsync(new UsersModel
+            await _usersRepo.AddAsync(new UsersModel
             {
                 FirstName = register.FirstName,
                 LastName = register.LastName,
@@ -166,7 +171,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             //return NotFound();
 
-            return usersRepo.GetUserById(id);
+            return _usersRepo.GetUserById(id);
         }
 
         // POST: api/TUsers
@@ -187,6 +192,24 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         //{
         //}
 
-        
+        [HttpPost]
+        [Route("{id}/Quizzes/")]
+        //[ProducesResponseType(typeof(List<AnswerModel>), StatusCodes.Status201Created)]
+        public async Task<ActionResult> UserQuiz(int id, [FromBody] UserQuizzesModel userQuizzesModel)
+        {
+            UsersModel currentUser = _usersRepo.GetUserByName(userQuizzesModel.Username);
+
+            await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
+            int lastUserQuizId = await _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);
+            userQuizzesModel.UserId = currentUser.UserId;
+            userQuizzesModel.UserQuizId = lastUserQuizId;
+            userQuizzesModel.QuizDate = DateTime.Now;
+
+            await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
+
+            return CreatedAtAction(nameof(UserQuiz), userQuizzesModel);
+        }
+
+
     }
 }

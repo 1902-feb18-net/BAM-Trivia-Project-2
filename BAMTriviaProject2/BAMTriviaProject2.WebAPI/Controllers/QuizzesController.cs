@@ -189,29 +189,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return CreatedAtAction(nameof(Answer), answers);
         }
 
-        [HttpPost]
-        [Route("/Users/{username}/Quizzes/")]
-        //[ProducesResponseType(typeof(List<AnswerModel>), StatusCodes.Status201Created)]
-        public async Task<ActionResult> UserQuiz([FromBody] UserQuizzesModel userQuizzesModel)
-        {
-            UsersModel currentUser = _usersRepo.GetUserByName(userQuizzesModel.Username);
-
-            await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
-            int lastUserQuizId = await _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);
-            userQuizzesModel.UserId = currentUser.UserId;
-            userQuizzesModel.UserQuizId = lastUserQuizId;
-
-            //for (int i = 0; i < quizQuestions.Count; i++)
-            //{
-            //    IEnumerable<AnswerModel> Ianswers = await _answersRepo.GetAnswerByQuestion(quizQuestions[i].Id);
-            //    foreach (var item in Ianswers)
-            //    {
-            //        answers.Add(item);
-            //    }
-            //}
-
-            return CreatedAtAction(nameof(Answer), userQuizzesModel);
-        }
+        
 
         // GET: Quizzes/Edit/5
         [HttpPut("{id}", Name = "EditQuizById")]

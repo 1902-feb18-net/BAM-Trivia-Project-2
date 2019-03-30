@@ -42,9 +42,6 @@ namespace BAMTriviaProject2.WebAPI
                 options.AddPolicy("AllowAll",
                 builder =>
                 {
-                    // for dev scenario, we can be pretty tolerant
-                    // in prod, we should be restrictive, we would fill in
-                    // only the origins where our Angular app was hosted.
                     builder.WithOrigins(new[]
                     {
                         "http://localhost:4200",

@@ -106,7 +106,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return NoContent();
         }
 
-
         // POST /account
         [HttpPost("[action]")]
         [AllowAnonymous]
@@ -163,57 +162,23 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return NoContent(); // nothing to show the user that he can access
         }
 
-
-        // GET: api/TUsers
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
         // GET: api/TUsers/5
         [HttpGet("{id}", Name = "GetById")]
         //[Produces("application/xml")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<UsersModel> GetById(int id)
         {
-            //if (_data.FirstOrDefault(x => x.Id == id) is var character)
-            //{
-            //    return character;
-            //}
-
-            //return NotFound();
-
             return _usersRepo.GetUserById(id);
         }
 
-        // POST: api/TUsers
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        // PUT: api/TUsers/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
-
         [HttpPost]
         [Route("{id}/Quizzes/")]
-        //[ProducesResponseType(typeof(List<AnswerModel>), StatusCodes.Status201Created)]
         public async Task<ActionResult> UserQuiz(int id, [FromBody] UserQuizzesModel userQuizzesModel)
         {
             UsersModel currentUser = _usersRepo.GetUserByName(userQuizzesModel.Username);
 
             await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
-            int lastUserQuizId = await _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);
+            int lastUserQuizId = _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);
             userQuizzesModel.UserId = currentUser.UserId;
             userQuizzesModel.UserQuizId = lastUserQuizId;
             userQuizzesModel.QuizDate = DateTime.Now;
@@ -222,7 +187,5 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             return CreatedAtAction(nameof(UserQuiz), userQuizzesModel);
         }
-
-
     }
 }

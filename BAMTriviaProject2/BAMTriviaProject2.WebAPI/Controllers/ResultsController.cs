@@ -56,17 +56,5 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             resultsRepo.AddResults(result);
             return CreatedAtAction(nameof(GetById), new { id = result.ResultId }, result.ResultId);
         }
-
-        //// PUT: api/Results/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

@@ -63,18 +63,18 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public int AddResults(ResultsModel result)
+        public async Task<int> AddResults(ResultsModel result)
         {
             var newResult = _mapper.Map(result);
             Context.Results.Add(newResult);
-            return SaveChangesAndCheckException();
+            return await SaveChangesAndCheckException();
         }
 
-        public int SaveChangesAndCheckException()
+        public async Task<int> SaveChangesAndCheckException()
         {
             try
             {
-                Context.SaveChanges();
+                await Context.SaveChangesAsync();
                 return 0;
             }
             catch (InvalidOperationException ex)

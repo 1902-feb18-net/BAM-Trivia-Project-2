@@ -99,5 +99,10 @@ namespace BAMTriviaProject2.DAL.Repositories
                 return null;
             }
         }
+
+        public void DeleteReview(int Id)
+        {
+            Context.Remove(Context.Reviews.Find(Id));
+        }
     }
 }

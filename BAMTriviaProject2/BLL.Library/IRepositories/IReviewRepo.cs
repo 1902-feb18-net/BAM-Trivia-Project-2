@@ -14,5 +14,7 @@ namespace BLL.Library.IRepositories
         List<ReviewsModel> GetReviewsByUserId(int userId);
 
         IEnumerable<ReviewsModel> GetAllReviews();
+
+        void DeleteReview(int Id);
     }
 }

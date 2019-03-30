@@ -88,9 +88,28 @@ namespace BAMTriviaProject2.DAL.Repositories
         public async Task<UsersModel> AddAsync(UsersModel user)
         {
             Context.Tusers.Add(_mapper.Map(user));
-            await Context.SaveChangesAsync();
+            await SaveChangesAndCheckException();
 
             return user;
+        }
+
+        public async Task<int> SaveChangesAndCheckException()
+        {
+            try
+            {
+                Context.SaveChangesAsync();
+                return 0;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 1;
+            }
         }
 
     }

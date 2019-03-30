@@ -9,12 +9,10 @@ namespace BLL.Library.IRepositories
     public interface IUserQuizzesRepo
     {
         List<UserQuizzesModel> GetUserQuizesByUser(int userId);
-
         List<UserQuizzesModel> GetUserQuizesByQuiz(int QId);
         UserQuizzesModel GetLastQuiz();
         Task<int> AddUserQuiz(UserQuizzesModel newUserQuizzesModel);
-        Task<int> GetLastUserQuizId(int userId);
-
+        int GetLastUserQuizId(int userId);
         double GetMaxScoreOfQuiz(QuizzesModel quiz);
     }
 }

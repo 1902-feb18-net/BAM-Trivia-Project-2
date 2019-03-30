@@ -15,7 +15,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly ILogger<QuestionsController> _logger;
-
         public IQuestionRepo questionsRepo { get; set; }
 
         public QuestionsController(IQuestionRepo newQuestionsRepo, ILogger<QuestionsController> logger)
@@ -51,17 +50,5 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             questionsRepo.AddQuestion(q);
             return CreatedAtAction(nameof(GetById), new { id = q.Id }, q);
         }
-
-        //// PUT: api/Questions/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

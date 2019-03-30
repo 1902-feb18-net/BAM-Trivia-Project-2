@@ -11,7 +11,7 @@ namespace BLL.Library.IRepositories
         IEnumerable<ResultsModel> GetAllResults();
         List<ResultsModel> GetResultsByUserQuizId(int userQuizId);
         ResultsModel GetResultsById(int resultId);
-        int AddResults(ResultsModel result);
-        int SaveChangesAndCheckException();
+        Task<int> AddResults(ResultsModel result);
+        Task<int> SaveChangesAndCheckException();
     }
 }

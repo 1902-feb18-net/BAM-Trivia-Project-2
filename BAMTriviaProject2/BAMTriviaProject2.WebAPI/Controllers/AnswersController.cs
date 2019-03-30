@@ -24,14 +24,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             _logger = logger;
         }
 
-        //// GET: api/Answers/5
-        //[HttpGet("Quiz/{id}", Name = "GetAnswersByQuestionId")]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public IEnumerable<AnswerModel> GetAnswersByQuestionId(int id)
-        //{
-        //    return answersRepo.GetAnswerByQuestion(id);
-        //}
-
         [HttpGet("{id}", Name = "GetAnswerById")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<AnswerModel> GetById(int id)
@@ -48,12 +40,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             answersRepo.AddAnswer(a);
             return CreatedAtAction(nameof(GetById), new { id = a.Id }, a);
         }
-
-        //// PUT: api/Answers/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}", Name = "DeleteAnswerById")]

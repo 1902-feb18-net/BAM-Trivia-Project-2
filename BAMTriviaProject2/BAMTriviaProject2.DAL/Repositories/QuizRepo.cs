@@ -29,7 +29,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
                 return 0;
             }
             catch (InvalidOperationException ex)

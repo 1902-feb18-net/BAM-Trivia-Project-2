@@ -103,11 +103,26 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public void AddQuestion(BLL.Library.Models.QuestionsModel question)
+        public async Task<int> AddQuestion(BLL.Library.Models.QuestionsModel question)
         {
             var value = _mapper.Map(question);
             Context.Add(value);
-            Context.SaveChanges();
+
+            try
+            {
+                await Context.SaveChangesAsync();
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
         }
     }
 }

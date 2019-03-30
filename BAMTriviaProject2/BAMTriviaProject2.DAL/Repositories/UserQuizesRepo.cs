@@ -30,7 +30,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                _db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
                 return 0;
             }
             catch (InvalidOperationException ex)
@@ -99,7 +99,7 @@ namespace BAMTriviaProject2.DAL.Repositories
             return await SaveChangesAndCheckException();
         }
 
-        public async Task<int> GetLastUserQuizId(int userId)
+        public int GetLastUserQuizId(int userId)
         {
             try
             {

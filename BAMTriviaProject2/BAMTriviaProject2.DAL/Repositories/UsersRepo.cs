@@ -97,7 +97,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                Context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
                 return 0;
             }
             catch (InvalidOperationException ex)

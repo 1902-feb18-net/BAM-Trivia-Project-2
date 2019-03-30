@@ -70,11 +70,26 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public void AddAnswer(AnswerModel answer)
+        public async Task<int> AddAnswer(AnswerModel answer)
         {
             var value = _mapper.Map(answer);
             Context.Add(value);
-            Context.SaveChanges();
+
+            try
+            {
+                await Context.SaveChangesAsync();
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
         }
 
         public AnswerModel GetAnswerById(int answerId)
@@ -95,14 +110,42 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public void DeleteAnswer(int Id)
+        public async Task<int> DeleteAnswer(int Id)
         {
-            Context.Remove(Context.Answers.Find(Id));
+            try
+            {
+                Context.Remove(Context.Answers.Find(Id));
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
         }
 
-        public void Save()
+        public async Task<int> Save()
         {
-            Context.SaveChanges();
+            try
+            {
+                await Context.SaveChangesAsync();
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
         }
     }
 }

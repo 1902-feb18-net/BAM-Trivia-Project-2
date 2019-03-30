@@ -75,98 +75,114 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] QuizzesModel quizzesModel)
         {
-            //finds all quizzes in the right category and right difficulty
-            IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
-            List<QuizzesModel> quizzes2 = quizzes.ToList();
-            //gets a random quiz out of the list of available ones
-            Random random = new Random();
-            int x = random.Next(quizzes2.Count);
+            try
+            {
+                //finds all quizzes in the right category and right difficulty
+                IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
+                List<QuizzesModel> quizzes2 = quizzes.ToList();
+                //gets a random quiz out of the list of available ones
+                Random random = new Random();
+                int x = random.Next(quizzes2.Count);
 
-            //gets the id of the quiz to use
-            int quizId = quizzes2[x].Id; //for when it's working
+                //gets the id of the quiz to use
+                int quizId = quizzes2[x].Id; //for when it's working
 
-            //int quizId = 1; //temporary
+                //int quizId = 1; //temporary
 
-            //finds all questions that were on that quiz
-            List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
+                //finds all questions that were on that quiz
+                List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
 
-            //QuizzesModel quiz = new QuizzesModel();
-            //quiz.Id = 1;
+                //QuizzesModel quiz = new QuizzesModel();
+                //quiz.Id = 1;
 
-            return CreatedAtAction(nameof(Create), questions);
+                return CreatedAtAction(nameof(Create), questions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return CreatedAtAction(nameof(Create), null);
+            }
         }
 
         [HttpPost]
         [Route("Random")]
         public async Task<ActionResult> CreateRandomQuiz(QuizzesModel quiz)
         {
-            Random random = new Random();
-
-            // Quiz
-            quiz.MaxScore = 10;
-
-            // Get some random quiz questions based upon difficulty
-            int numQuestions = 10;
-
-            List<QuestionsModel> categoryQuestions = _questionsRepo.GetQuestionByCategory(quiz.Category);
-
-            List<QuestionsModel> questions1 = new List<QuestionsModel>();
-            //_questionsRepo.GetQuestionByDifficultyAndCategory(
-            // quiz.Difficulty, quiz.Category).Result;
-            List<QuestionsModel> questions2 = new List<QuestionsModel>();
-            List<QuestionsModel> questions3 = new List<QuestionsModel>();
-            if (quiz.Difficulty == 1)
+            try
             {
-                questions1 = categoryQuestions.Where(cq => cq.Rating == 1).ToList();
-                questions2 = categoryQuestions.Where(cq => cq.Rating == 2).ToList();
-                questions3 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
-            }
-            else if (quiz.Difficulty == 3)
-            {
-                questions1 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
-                questions2 = categoryQuestions.Where(cq => cq.Rating == 4).ToList();
-                questions3 = categoryQuestions.Where(cq => cq.Rating == 5).ToList();
-            }
-            else
-            {
-                questions1 = categoryQuestions.Where(cq => cq.Rating == 2).ToList();
-                questions2 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
-                questions3 = categoryQuestions.Where(cq => cq.Rating == 4).ToList();
-            }
-            
-            List<QuestionsModel> quizQuestionsPool = new List<QuestionsModel>();
-            foreach (var item in questions1)
-            {
-                quizQuestionsPool.Add(item);
-            }
-            foreach (var item in questions2)
-            {
-                quizQuestionsPool.Add(item);
-            }
-            foreach (var item in questions3)
-            {
-                quizQuestionsPool.Add(item);
-            }
+                Random random = new Random();
 
-            List<QuestionsModel> quizQuestions = new List<QuestionsModel>();
-            int randNum;
-            for (int i = 0; i < numQuestions; i++)
-            {
-                randNum = random.Next() % (15 - i);
-                quizQuestions.Add(quizQuestionsPool[randNum]);
-                quizQuestionsPool.RemoveAt(randNum);
+                // Quiz
+                quiz.MaxScore = 10;
+
+                // Get some random quiz questions based upon difficulty
+                int numQuestions = 10;
+
+                List<QuestionsModel> categoryQuestions = _questionsRepo.GetQuestionByCategory(quiz.Category);
+
+                List<QuestionsModel> questions1 = new List<QuestionsModel>();
+                //_questionsRepo.GetQuestionByDifficultyAndCategory(
+                // quiz.Difficulty, quiz.Category).Result;
+                List<QuestionsModel> questions2 = new List<QuestionsModel>();
+                List<QuestionsModel> questions3 = new List<QuestionsModel>();
+                if (quiz.Difficulty == 1)
+                {
+                    questions1 = categoryQuestions.Where(cq => cq.Rating == 1).ToList();
+                    questions2 = categoryQuestions.Where(cq => cq.Rating == 2).ToList();
+                    questions3 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
+                }
+                else if (quiz.Difficulty == 3)
+                {
+                    questions1 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
+                    questions2 = categoryQuestions.Where(cq => cq.Rating == 4).ToList();
+                    questions3 = categoryQuestions.Where(cq => cq.Rating == 5).ToList();
+                }
+                else
+                {
+                    questions1 = categoryQuestions.Where(cq => cq.Rating == 2).ToList();
+                    questions2 = categoryQuestions.Where(cq => cq.Rating == 3).ToList();
+                    questions3 = categoryQuestions.Where(cq => cq.Rating == 4).ToList();
+                }
+
+                List<QuestionsModel> quizQuestionsPool = new List<QuestionsModel>();
+                foreach (var item in questions1)
+                {
+                    quizQuestionsPool.Add(item);
+                }
+                foreach (var item in questions2)
+                {
+                    quizQuestionsPool.Add(item);
+                }
+                foreach (var item in questions3)
+                {
+                    quizQuestionsPool.Add(item);
+                }
+
+                List<QuestionsModel> quizQuestions = new List<QuestionsModel>();
+                int randNum;
+                for (int i = 0; i < numQuestions; i++)
+                {
+                    randNum = random.Next() % (15 - i);
+                    quizQuestions.Add(quizQuestionsPool[randNum]);
+                    quizQuestionsPool.RemoveAt(randNum);
+                }
+
+                await quizRepo.AddQuiz(quiz);
+                int lastQuizId = quizRepo.GetLastQuizId();
+                quiz.Id = lastQuizId;
+
+                for (int i = 0; i < quizQuestions.Count(); i++)
+                {
+                    await quizQuestionRepo.AddQuizQuestion(lastQuizId, quizQuestions[i].Id);
+                }
+
+                return CreatedAtAction(nameof(Create), quiz);
             }
-
-            await quizRepo.AddQuiz(quiz);
-            int lastQuizId = quizRepo.GetLastQuizId();
-            quiz.Id = lastQuizId;
-
-            for (int i = 0; i < quizQuestions.Count(); i++)
+            catch (Exception ex)
             {
-                await quizQuestionRepo.AddQuizQuestion(lastQuizId, quizQuestions[i].Id);
+                _logger.LogError(ex.ToString());
+                return CreatedAtAction(nameof(Create), null);
             }
-
-            return CreatedAtAction(nameof(Create), quiz);
         }
 
         // POST: Quizzes/Answers
@@ -189,54 +205,18 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return CreatedAtAction(nameof(Answer), answers);
         }
 
-        
-
-        // GET: Quizzes/Edit/5
-        [HttpPut("{id}", Name = "EditQuizById")]
-        public ActionResult<QuizzesModel> Edit(int id)
-        {
-            return quizRepo.GetQuizById(id);
-        }
-
-        //// POST: Quizzes/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
+        //// GET: Quizzes/Edit/5
+        //[HttpPut("{id}", Name = "EditQuizById")]
+        //public ActionResult<QuizzesModel> Edit(int id)
         //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return ViewResult();
-        //    }
+        //    return quizRepo.GetQuizById(id);
         //}
 
-        // GET: Quizzes/Delete/5
-        [HttpDelete("{id}", Name = "DeleteQuizById")]
-        public ActionResult<QuizzesModel> Delete(int id)
-        {
-            return quizRepo.GetQuizById(id);
-        }
-
-        //// POST: Quizzes/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
+        //// GET: Quizzes/Delete/5
+        //[HttpDelete("{id}", Name = "DeleteQuizById")]
+        //public ActionResult<QuizzesModel> Delete(int id)
         //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return ViewResult();
-        //    }
+        //    return quizRepo.GetQuizById(id);
         //}
     }
 }

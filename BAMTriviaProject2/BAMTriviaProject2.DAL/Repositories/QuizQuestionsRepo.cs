@@ -29,7 +29,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         {
             try
             {
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return 0;
             }
             catch (InvalidOperationException ex)
@@ -91,9 +91,6 @@ namespace BAMTriviaProject2.DAL.Repositories
             var newQuizQuestionDAL = _mapper.Map(newQuizQuestion);
             _db.QuizQuestions.Add(newQuizQuestionDAL);
             return await SaveChangesAndCheckException();
-
         }
-
-
     }
 }

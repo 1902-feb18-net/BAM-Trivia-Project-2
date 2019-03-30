@@ -38,7 +38,7 @@ Insert TP2.Questions(QCategory, QType, QRating, QString)
 Insert TP2.Questions(QCategory, QType, QRating, QString)
 	VALUES('QC', 'Bool', 3, 'Is Sticky a CSS position value?');
 Insert TP2.Questions(QCategory, QType, QRating, QString)
-	VALUES('QC', 'Fill', 3, 'What property value The element is positioned relative to its first positioned (not static) ancestor element?');
+	VALUES('QC', 'Fill', 3, 'What property value is positioned relative to its first positioned (not static) ancestor element?');
 Insert TP2.Questions(QCategory, QType, QRating, QString)
 	VALUES('QC', 'Multiple', 3, 'Which HTML Structural element is not new in HTML5?');
 Insert TP2.Questions(QCategory, QType, QRating, QString)

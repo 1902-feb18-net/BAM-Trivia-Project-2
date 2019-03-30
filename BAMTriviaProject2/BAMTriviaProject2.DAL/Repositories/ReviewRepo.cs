@@ -100,9 +100,82 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public void DeleteReview(int Id)
+        public async Task<int> AddReview(ReviewsModel review)
         {
-            Context.Remove(Context.Reviews.Find(Id));
+            var value = _mapper.Map(review);
+            Context.Add(value);
+
+            try
+            {
+                await Context.SaveChangesAsync();
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+        }
+
+        public async Task<int> DeleteReviewAsync(int Id)
+        {
+            try
+            {
+                Context.Remove(Context.Reviews.Find(Id));
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+        }
+
+        public async Task<int> Save()
+        {
+            try
+            {
+                await Context.SaveChangesAsync();
+                return 1;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return 0;
+            }
+        }
+
+        public ReviewsModel GetByReviewId(int reviewId)
+        {
+            try
+            {
+                return _mapper.Map(Context.Reviews.Single(r => r.Rid == reviewId));
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
         }
     }
 }

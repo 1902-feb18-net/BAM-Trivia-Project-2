@@ -36,7 +36,8 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpGet("Quiz", Name ="GetAllQuizReviews")]
         public IEnumerable<ReviewsModel> GetReviewsQuiz()
         {
-            return reviewsRepo.GetAllQuizReviews();
+            IEnumerable<ReviewsModel> reviews = reviewsRepo.GetAllQuizReviews();
+            return reviews;
         }
 
         // GET: api/Reviews/Quizzes/{Id}

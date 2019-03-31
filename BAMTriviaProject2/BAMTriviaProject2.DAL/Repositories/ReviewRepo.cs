@@ -123,13 +123,13 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public IEnumerable<ReviewsModel> GetAllQuizReviews()
+        public List<ReviewsModel> GetAllQuizReviews()
         {
             try
             {
                 return _mapper.Map(
                     Context.Reviews
-                    .Where(r => r.QuizId != null));
+                    .Where(r => r.QuizId != null)).ToList();
             }
             catch (SqlException ex)
             {

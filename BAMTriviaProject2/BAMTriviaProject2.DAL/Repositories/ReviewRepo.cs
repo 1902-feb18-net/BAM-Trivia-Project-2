@@ -15,7 +15,7 @@ namespace BAMTriviaProject2.DAL.Repositories
     {
         private readonly ILogger<ReviewRepo> _logger;
         private readonly IMapper _mapper;
-        public static BAMTriviaProject2Context Context { get; set; }
+        private BAMTriviaProject2Context Context { get; set; }
 
         public ReviewRepo(BAMTriviaProject2Context dbContext,
             ILogger<ReviewRepo> logger, IMapper mapper)

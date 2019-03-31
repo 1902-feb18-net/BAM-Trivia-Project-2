@@ -13,8 +13,7 @@ namespace BAMTriviaProject2.DAL.Repositories
     {
         private readonly ILogger<QuestionRepo> _logger;
         private readonly IMapper _mapper;
-
-        public static BAMTriviaProject2Context Context { get; set; }
+        private BAMTriviaProject2Context Context { get; set; }
 
         public QuestionRepo(BAMTriviaProject2Context dbContext,
             ILogger<QuestionRepo> logger, IMapper mapper)

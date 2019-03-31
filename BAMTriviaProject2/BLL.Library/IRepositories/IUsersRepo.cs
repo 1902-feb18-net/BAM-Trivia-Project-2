@@ -10,8 +10,10 @@ namespace BLL.Library.IRepositories
     {
         int GetUserId(string name);
         UsersModel GetUserById(int id);
-        UsersModel GetUserByName(string name);
+        Task<UsersModel> GetUserByName(string username);
         List<UsersModel> GetAllUsers();
         Task<UsersModel> AddAsync(UsersModel user);
+        UsersModel GetIdByUsername(string username);
+
     }
 }

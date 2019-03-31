@@ -171,11 +171,20 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return _usersRepo.GetUserById(id);
         }
 
+        // GET: api/TUsers/5
+        [HttpGet("username/{username}", Name = "GetIdByUsername")]
+        //[Produces("application/xml")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<UsersModel> GetIdByUsername(string username)
+        {
+            return _usersRepo.GetIdByUsername(username);
+        }
+
         [HttpPost]
         [Route("{id}/Quizzes/")]
         public async Task<ActionResult> UserQuiz(int id, [FromBody] UserQuizzesModel userQuizzesModel)
         {
-            UsersModel currentUser = _usersRepo.GetUserByName(userQuizzesModel.Username);
+            UsersModel currentUser = await _usersRepo.GetUserByName(userQuizzesModel.Username);
 
             await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
             int lastUserQuizId = _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);

@@ -1,5 +1,6 @@
 ﻿using BLL.Library.IRepositories;
 using BLL.Library.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -88,6 +89,15 @@ namespace BAMTriviaProject2.DAL.Repositories
         public async Task<UsersModel> AddAsync(UsersModel user)
         {
             Context.Tusers.Add(_mapper.Map(user));
+            await SaveChangesAndCheckException();
+
+            return user;
+        }
+
+        public async Task<UsersModel> EditUserAsync(UsersModel user)
+        {
+            var entity = await Context.Tusers.FindAsync(user.UserId);
+            Context.Entry(entity).CurrentValues.SetValues(_mapper.Map(user));
             await SaveChangesAndCheckException();
 
             return user;

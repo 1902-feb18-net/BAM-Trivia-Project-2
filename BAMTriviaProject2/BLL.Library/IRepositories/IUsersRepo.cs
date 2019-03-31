@@ -13,5 +13,6 @@ namespace BLL.Library.IRepositories
         UsersModel GetUserByName(string name);
         List<UsersModel> GetAllUsers();
         Task<UsersModel> AddAsync(UsersModel user);
+        Task<UsersModel> EditUserAsync(UsersModel user);
     }
 }

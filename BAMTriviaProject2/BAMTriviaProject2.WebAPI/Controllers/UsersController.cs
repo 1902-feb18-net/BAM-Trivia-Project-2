@@ -187,5 +187,19 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
             return CreatedAtAction(nameof(UserQuiz), userQuizzesModel);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> EditUser([FromBody] UsersModel usersModel)
+        {
+            UsersModel currentUser = _usersRepo.GetUserByName(usersModel.Username);
+
+            currentUser.FirstName = usersModel.FirstName;
+            currentUser.LastName = usersModel.LastName;
+            currentUser.CreditCardNumber = usersModel.CreditCardNumber;
+
+            await _usersRepo.EditUserAsync(usersModel);
+
+            return CreatedAtAction(nameof(UserQuiz), usersModel);
+        }
     }
 }

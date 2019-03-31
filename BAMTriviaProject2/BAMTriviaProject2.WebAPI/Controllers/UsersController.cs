@@ -220,13 +220,13 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         [HttpGet("{id}/Quizzes", Name = "GetUserQuizByUser")]
         //[Route("{id}/Quizzes/")]
-        public async Task<ActionResult> GetUserQuizzesByUser(int userID)
+        public async Task<List<UserQuizzesModel>> GetUserQuizzesByUser(int userID)
         {
 
             IEnumerable<UserQuizzesModel> temp = await _userQuizzesRepo.GetUserQuizesByUser(userID);
             List<UserQuizzesModel> userQuizzes = temp.ToList();
 
-            return CreatedAtAction(nameof(UserQuiz), userQuizzes);
+            return userQuizzes;
         }
 
         [HttpPut]

@@ -19,7 +19,6 @@ namespace BLL.Library.Models
         public string Answer { get; set; }
 
         [Required]
-        [StringRange(AllowableValues = new[] { "true", "false" }, ErrorMessage = "Boolean values must be 'true' or 'false'")]
         public bool Correct { get; set; }
     }
 }

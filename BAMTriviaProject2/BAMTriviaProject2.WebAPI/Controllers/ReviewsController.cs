@@ -32,6 +32,13 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return reviewsRepo.GetAllReviews();
         }
 
+        // GET: api/Reviews
+        [HttpGet("Quiz", Name ="GetAllQuizReviews")]
+        public IEnumerable<ReviewsModel> GetReviewsQuiz()
+        {
+            return reviewsRepo.GetAllQuizReviews();
+        }
+
         // GET: api/Reviews/Quizzes/{Id}
         [HttpGet("{id}", Name = "GetByReviewId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,13 +75,21 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return reviews;
         }
 
+        [HttpGet("Users/{id}/Quiz", Name = "GetReviewsByUserIdQuiz")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IEnumerable<ReviewsModel> GetReviewsByUserIdQuiz(int id)
+        {
+            IEnumerable<ReviewsModel> reviews = reviewsRepo.GetReviewsByUserIdQuizOnly(id);
+            return reviews;
+        }
+
         // POST: api/Review
         [HttpPost]
         [ProducesResponseType(typeof(ReviewsModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] ReviewsModel review)
+        public async Task<IActionResult> Post([FromBody] ReviewsModel review)
         {
-            reviewsRepo.AddReview(review);
+            await reviewsRepo.AddReview(review);
             return CreatedAtAction(nameof(GetById), new { id = review.Id }, review);
         }
 
@@ -82,14 +97,14 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpDelete("{id}", Name = "DeleteReviewsById")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             //answersRepo.DeleteAnswer(id);
             if (reviewsRepo.GetByReviewId(id) is ReviewsModel review) //if found
             {
                 //delete user
-                reviewsRepo.DeleteReviewAsync(review.Id);
-                reviewsRepo.Save();
+                await reviewsRepo.DeleteReviewAsync(review.Id);
+                await reviewsRepo.Save();
                 return NoContent(); // 204
             }
 

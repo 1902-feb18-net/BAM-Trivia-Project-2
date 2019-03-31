@@ -207,7 +207,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             //UsersModel currentUser = await _usersRepo.GetUserByName(userQuizzesModel.Username);
 
             //int lastUserQuizId = await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
-            await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
 
             //int lastUserQuizId = await _userQuizzesRepo.GetLastUserQuizId(id);
             userQuizzesModel.UserId = id;

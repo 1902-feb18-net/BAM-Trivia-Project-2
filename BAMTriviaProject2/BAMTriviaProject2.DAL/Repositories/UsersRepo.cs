@@ -62,11 +62,11 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public UsersModel GetUserByName(string username)
+        public async Task<UsersModel> GetUserByName(string username)
         {
             try
             {
-                return _mapper.Map(Context.Tusers.Single(u => u.Username == username));
+                return _mapper.Map(await Context.Tusers.SingleAsync(u => u.Username == username));
             }
             catch (SqlException ex)
             {

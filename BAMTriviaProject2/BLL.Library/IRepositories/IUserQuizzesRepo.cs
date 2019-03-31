@@ -12,7 +12,7 @@ namespace BLL.Library.IRepositories
         List<UserQuizzesModel> GetUserQuizesByQuiz(int QId);
         UserQuizzesModel GetLastQuiz();
         Task<int> AddUserQuiz(UserQuizzesModel newUserQuizzesModel);
-        int GetLastUserQuizId(int userId);
+        Task<int> GetLastUserQuizId(int userId);
         double GetMaxScoreOfQuiz(QuizzesModel quiz);
     }
 }

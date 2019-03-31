@@ -175,12 +175,14 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [Route("{id}/Quizzes/")]
         public async Task<ActionResult> UserQuiz(int id, [FromBody] UserQuizzesModel userQuizzesModel)
         {
-            UsersModel currentUser = _usersRepo.GetUserByName(userQuizzesModel.Username);
+            //UsersModel currentUser = await _usersRepo.GetUserByName(userQuizzesModel.Username);
 
+            //int lastUserQuizId = await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
             await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
-            int lastUserQuizId = _userQuizzesRepo.GetLastUserQuizId(currentUser.UserId);
-            userQuizzesModel.UserId = currentUser.UserId;
-            userQuizzesModel.UserQuizId = lastUserQuizId;
+
+            //int lastUserQuizId = await _userQuizzesRepo.GetLastUserQuizId(id);
+            userQuizzesModel.UserId = id;
+            //userQuizzesModel.UserQuizId = lastUserQuizId;
             userQuizzesModel.QuizDate = DateTime.Now;
 
             await _userQuizzesRepo.AddUserQuiz(userQuizzesModel);
@@ -191,11 +193,11 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> EditUser([FromBody] UsersModel usersModel)
         {
-            UsersModel currentUser = _usersRepo.GetUserByName(usersModel.Username);
+            //UsersModel currentUser = _usersRepo.GetUserByName(usersModel.Username);
 
-            currentUser.FirstName = usersModel.FirstName;
-            currentUser.LastName = usersModel.LastName;
-            currentUser.CreditCardNumber = usersModel.CreditCardNumber;
+            //currentUser.FirstName = usersModel.FirstName;
+            //currentUser.LastName = usersModel.LastName;
+            //currentUser.CreditCardNumber = usersModel.CreditCardNumber;
 
             await _usersRepo.EditUserAsync(usersModel);
 

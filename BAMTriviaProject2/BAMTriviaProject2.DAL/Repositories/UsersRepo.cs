@@ -1,5 +1,6 @@
 ﻿using BLL.Library.IRepositories;
 using BLL.Library.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -61,11 +62,11 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public UsersModel GetUserByName(string username)
+        public async Task<UsersModel> GetUserByName(string username)
         {
             try
             {
-                return _mapper.Map(Context.Tusers.Single(u => u.Username == username));
+                return _mapper.Map(await Context.Tusers.SingleAsync(u => u.Username == username));
             }
             catch (SqlException ex)
             {
@@ -88,6 +89,15 @@ namespace BAMTriviaProject2.DAL.Repositories
         public async Task<UsersModel> AddAsync(UsersModel user)
         {
             Context.Tusers.Add(_mapper.Map(user));
+            await SaveChangesAndCheckException();
+
+            return user;
+        }
+
+        public async Task<UsersModel> EditUserAsync(UsersModel user)
+        {
+            var entity = await Context.Tusers.FindAsync(user.UserId);
+            Context.Entry(entity).CurrentValues.SetValues(_mapper.Map(user));
             await SaveChangesAndCheckException();
 
             return user;

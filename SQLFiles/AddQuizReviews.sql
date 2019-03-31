@@ -11,6 +11,14 @@ WHERE q.QCategory = 'QC'
 
 -- inserting a couple reviews for the quizzes
 INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
+	(null, 1, 5, 9)
+INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
+	(null, 1, 6, 6)
+INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
+	(null, 1, 3, 2)
+INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
+	(null, 1, 8, 3)
+INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
 	(null, 2, 5, 9)
 INSERT INTO TP2.Reviews(QId, QuizId, UserId, RRatings) VALUES
 	(null, 2, 6, 6)

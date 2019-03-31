@@ -14,9 +14,10 @@ namespace BLL.Library.IRepositories
         List<ReviewsModel> GetReviewsByUserId(int userId);
         List<ReviewsModel> GetReviewsByUserIdQuizOnly(int userId);
         List<ReviewsModel> GetReviewsByUserIdQuizId(int userId, int quizId);
+        List<ReviewsModel> GetAllQuizReviews();
 
         IEnumerable<ReviewsModel> GetAllReviews();
-        IEnumerable<ReviewsModel> GetAllQuizReviews();
+        //IEnumerable<ReviewsModel> GetAllQuizReviews();
 
         Task<int> AddReview(ReviewsModel review);
         Task<int> DeleteReviewAsync(int Id);

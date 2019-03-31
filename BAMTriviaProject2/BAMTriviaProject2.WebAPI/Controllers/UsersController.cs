@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Net;
 
 namespace BAMTriviaProject2.WebAPI.Controllers
 {
@@ -83,17 +84,27 @@ namespace BAMTriviaProject2.WebAPI.Controllers
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] AuthLogin login)
+        public async Task<IActionResult> Login([FromBody] AuthLogin login,
+            [FromServices] RoleManager<IdentityRole> roleManager,
+            [FromServices] UserManager<IdentityUser> userManager)
         {
-            SignInResult result = await SignInManager.PasswordSignInAsync(
+            if (userManager.FindByNameAsync(login.Username) != null &&
+                await _usersRepo.CheckUserByName(login.Username))
+            {
+                SignInResult result = await SignInManager.PasswordSignInAsync(
                 login.Username, login.Password, login.RememberMe, false);
 
-            if (!result.Succeeded)
-            {
-                return Unauthorized(); // 401 for login failure
-            }
+                if (!result.Succeeded)
+                {
+                    return Unauthorized(); // 401 for login failure
+                }
 
-            return NoContent();
+                return NoContent();
+            }
+            else
+            {
+                return Forbid();
+            }
         }
 
         // POST /account/logout
@@ -113,53 +124,71 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             [FromServices] RoleManager<IdentityRole> roleManager,
             [FromServices] UserManager<IdentityUser> userManager)
         {
-            var user = new IdentityUser(register.Username);
-
-            IdentityResult createUserResult = await userManager.CreateAsync(user,
-                register.Password);
-
-            if (!createUserResult.Succeeded) // e.g. did not meet password policy
+            if (await userManager.FindByNameAsync(register.Username) == null)
             {
-                return BadRequest(createUserResult);
-            }
+                var user = new IdentityUser(register.Username);
 
-            if (register.AccountType == true)
-            {
-                // make sure admin role exists
-                if (!await roleManager.RoleExistsAsync("admin"))
+                IdentityResult createUserResult = await userManager.CreateAsync(user,
+                    register.Password);
+
+                if (!createUserResult.Succeeded) // e.g. did not meet password policy
                 {
-                    var role = new IdentityRole("admin");
-                    IdentityResult createRoleResult = await roleManager.CreateAsync(role);
-                    if (!createRoleResult.Succeeded)
+                    return BadRequest(createUserResult);
+                }
+
+                if (register.AccountType == true)
+                {
+                    // make sure admin role exists
+                    if (!await roleManager.RoleExistsAsync("admin"))
+                    {
+                        var role = new IdentityRole("admin");
+                        IdentityResult createRoleResult = await roleManager.CreateAsync(role);
+                        if (!createRoleResult.Succeeded)
+                        {
+                            return StatusCode(StatusCodes.Status500InternalServerError,
+                                "failed to create admin role");
+                        }
+                    }
+
+                    // add user to admin role
+                    IdentityResult addRoleResult = await userManager.AddToRoleAsync(user, "admin");
+                    if (!addRoleResult.Succeeded)
                     {
                         return StatusCode(StatusCodes.Status500InternalServerError,
-                            "failed to create admin role");
+                            "failed to add user to admin role");
                     }
                 }
 
-                // add user to admin role
-                IdentityResult addRoleResult = await userManager.AddToRoleAsync(user, "admin");
-                if (!addRoleResult.Succeeded)
+                await SignInManager.SignInAsync(user, false);
+
+                await _usersRepo.AddAsync(new UsersModel
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError,
-                        "failed to add user to admin role");
-                }
+                    FirstName = register.FirstName,
+                    LastName = register.LastName,
+                    PW = "a",
+                    Username = register.Username,
+                    CreditCardNumber = register.CreditCardNumber,
+                    PointTotal = 0,
+                    AccountType = register.AccountType
+                });
+
+                return NoContent(); // nothing to show the user that he can access
             }
-
-            await SignInManager.SignInAsync(user, false);
-
-            await _usersRepo.AddAsync(new UsersModel
+            else
             {
-                FirstName = register.FirstName,
-                LastName = register.LastName,
-                PW = "a",
-                Username = register.Username,
-                CreditCardNumber = register.CreditCardNumber,
-                PointTotal = 0,
-                AccountType = register.AccountType
-            });
-
-            return NoContent(); // nothing to show the user that he can access
+                return Forbid();
+                //return InternalServerError
+                //return Content("user already exists");
+                //var response = new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+                //return (IActionResult)response;
+                //return NotFound("user already exists");
+                //var response = new HttpResponseMessage<List<string>>(errors, HttpStatusCode.BadRequest);
+                //("user already exosts", HttpStatusCode.BadRequest);
+                //return (IActionResult)response;
+                //return BadRequest("user already exists");
+                //StatusCode(StatusCodes.Status500InternalServerError,
+                //        "user already exists");
+            }
         }
 
         // GET: api/TUsers/5
@@ -193,15 +222,43 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> EditUser([FromBody] UsersModel usersModel)
         {
-            //UsersModel currentUser = _usersRepo.GetUserByName(usersModel.Username);
+            UsersModel currentUser = await _usersRepo.GetUserByName(usersModel.Username);
 
-            //currentUser.FirstName = usersModel.FirstName;
-            //currentUser.LastName = usersModel.LastName;
-            //currentUser.CreditCardNumber = usersModel.CreditCardNumber;
+            currentUser.FirstName = usersModel.FirstName;
+            currentUser.LastName = usersModel.LastName;
+            currentUser.CreditCardNumber = usersModel.CreditCardNumber;
 
-            await _usersRepo.EditUserAsync(usersModel);
+            await _usersRepo.EditUserAsync(currentUser);
 
-            return CreatedAtAction(nameof(UserQuiz), usersModel);
+            return CreatedAtAction(nameof(EditUser), usersModel);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(UsersModel usersModel,
+            [FromServices] RoleManager<IdentityRole> roleManager,
+            [FromServices] UserManager<IdentityUser> userManager)
+        {
+            await SignInManager.SignOutAsync();
+
+            UsersModel currentUser = await _usersRepo.GetUserByName(usersModel.Username);
+            //var user = await userManager.FindByIdAsync(currentUser.Username);
+
+            var user = new IdentityUser(usersModel.Username);
+
+            //var rolesForUser = await userManager.GetRolesAsync(user);
+            //if (rolesForUser.Count() > 0)
+            //{
+            //    foreach (var item in rolesForUser.ToList())
+            //    {
+            //        // item should be the name of the role
+            //        var result = await userManager.RemoveFromRoleAsync(user, "admin");
+            //    }
+            //}
+
+            await userManager.DeleteAsync(user);
+            await _usersRepo.DeleteAsync(currentUser);
+
+            return CreatedAtAction(nameof(DeleteUser), usersModel);
         }
     }
 }

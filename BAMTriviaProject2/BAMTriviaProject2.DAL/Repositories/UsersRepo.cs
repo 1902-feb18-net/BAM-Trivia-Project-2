@@ -15,8 +15,7 @@ namespace BAMTriviaProject2.DAL.Repositories
     {
         private readonly ILogger<UsersRepo> _logger;
         private readonly IMapper _mapper;
-
-        public static BAMTriviaProject2Context Context { get; set; }
+        private BAMTriviaProject2Context Context { get; set; }
 
         public UsersRepo(BAMTriviaProject2Context dbContext, 
             ILogger<UsersRepo> logger, IMapper mapper)
@@ -80,6 +79,24 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+        public async Task<bool> CheckUserByName(string username)
+        {
+            try
+            {
+                return Context.Tusers.Any(u => u.Username == username);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return false;
+            }
+        }
+
         public List<UsersModel> GetAllUsers()
         {
             List<UsersModel> list = new List<UsersModel>();
@@ -89,6 +106,14 @@ namespace BAMTriviaProject2.DAL.Repositories
         public async Task<UsersModel> AddAsync(UsersModel user)
         {
             Context.Tusers.Add(_mapper.Map(user));
+            await SaveChangesAndCheckException();
+
+            return user;
+        }
+
+        public async Task<UsersModel> DeleteAsync(UsersModel user)
+        {
+            Context.Tusers.Remove(Context.Tusers.Find(user.UserId));
             await SaveChangesAndCheckException();
 
             return user;

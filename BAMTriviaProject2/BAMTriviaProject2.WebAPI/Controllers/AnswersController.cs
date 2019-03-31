@@ -35,9 +35,9 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(AnswerModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] AnswerModel a)
+        public async Task<IActionResult> Post([FromBody] AnswerModel a)
         {
-            answersRepo.AddAnswer(a);
+            await answersRepo.AddAnswer(a);
             return CreatedAtAction(nameof(GetById), new { id = a.Id }, a);
         }
 
@@ -45,15 +45,13 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         [HttpDelete("{id}", Name = "DeleteAnswerById")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status406NotAcceptable)]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            //answersRepo.DeleteAnswer(id);
             if (answersRepo.GetAnswerById(id) is AnswerModel answer) //if found
             {
                 //delete user
-                answersRepo.DeleteAnswer(answer.Id);
-                answersRepo.Save();
+                await answersRepo.DeleteAnswer(answer.Id);
+                await answersRepo.Save();
                 return NoContent(); // 204
             }
 

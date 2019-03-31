@@ -1,0 +1,7 @@
+bin/
+obj/
+Dockerfile
+.vscode/
+
+# comments
+# syntax very similar to gitignore, slightly different

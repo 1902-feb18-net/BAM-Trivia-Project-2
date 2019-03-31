@@ -14,7 +14,7 @@ namespace BAMTriviaProject2.DAL.Repositories
     public class QuizRepo : IQuizRepo
     {
         private readonly ILogger<QuizRepo> _logger;
-        public static BAMTriviaProject2Context _db { get; set; }
+        public BAMTriviaProject2Context _db { get; set; }
         private readonly IMapper _mapper;
 
         public QuizRepo(BAMTriviaProject2Context dbContext,

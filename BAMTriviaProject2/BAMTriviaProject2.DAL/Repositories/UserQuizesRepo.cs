@@ -46,11 +46,12 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public List<UserQuizzesModel> GetUserQuizesByUser(int userId)
+        public async Task<IEnumerable<UserQuizzesModel>> GetUserQuizesByUser(int userId)
         {
             try
             {
-                return _mapper.Map(_db.UserQuizzes.Where(u => u.UserId == userId)).ToList();
+                IEnumerable<UserQuizzesModel> list = _mapper.Map(await(_db.UserQuizzes.Where(u => u.UserId == userId)).ToListAsync());
+                return list;
             }
             catch (SqlException ex)
             {

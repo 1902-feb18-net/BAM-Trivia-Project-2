@@ -189,6 +189,17 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return CreatedAtAction(nameof(UserQuiz), userQuizzesModel);
         }
 
+        [HttpGet("{id}/Quizzes", Name = "GetUserQuizByUser")]
+        //[Route("{id}/Quizzes/")]
+        public async Task<ActionResult> GetUserQuizzesByUser(int userID)
+        {
+
+            IEnumerable<UserQuizzesModel> temp = await _userQuizzesRepo.GetUserQuizesByUser(userID);
+            List<UserQuizzesModel> userQuizzes = temp.ToList();
+
+            return CreatedAtAction(nameof(UserQuiz), userQuizzes);
+        }
+
         [HttpPut]
         public async Task<ActionResult> EditUser([FromBody] UsersModel usersModel)
         {

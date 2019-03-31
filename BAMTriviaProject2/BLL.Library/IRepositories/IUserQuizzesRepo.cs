@@ -8,7 +8,7 @@ namespace BLL.Library.IRepositories
 {
     public interface IUserQuizzesRepo
     {
-        List<UserQuizzesModel> GetUserQuizesByUser(int userId);
+        Task<IEnumerable<UserQuizzesModel>> GetUserQuizesByUser(int userId);
         List<UserQuizzesModel> GetUserQuizesByQuiz(int QId);
         UserQuizzesModel GetLastQuiz();
         Task<int> AddUserQuiz(UserQuizzesModel newUserQuizzesModel);

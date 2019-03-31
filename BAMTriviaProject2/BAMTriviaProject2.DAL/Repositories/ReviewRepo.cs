@@ -82,11 +82,54 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
+        public List<ReviewsModel> GetReviewsByUserIdQuizOnly(int userId)
+        {
+            try
+            {
+                List<ReviewsModel> reviews = _mapper.Map(
+                    Context.Reviews
+                    .Where(r => r.UserId == userId)
+                    .Where(q => q.QuizId != null))
+                    .ToList();
+                return reviews;
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
         public IEnumerable<ReviewsModel> GetAllReviews()
         {
             try
             {
                 return _mapper.Map(Context.Reviews);
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
+        public IEnumerable<ReviewsModel> GetAllQuizReviews()
+        {
+            try
+            {
+                return _mapper.Map(
+                    Context.Reviews
+                    .Where(r => r.QuizId != null));
             }
             catch (SqlException ex)
             {
@@ -165,6 +208,29 @@ namespace BAMTriviaProject2.DAL.Repositories
             try
             {
                 return _mapper.Map(Context.Reviews.Single(r => r.Rid == reviewId));
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return null;
+            }
+        }
+
+        public List<ReviewsModel> GetReviewsByUserIdQuizId(int userId, int quizId)
+        {
+            try
+            {
+                List<ReviewsModel> reviews = _mapper.Map(
+                    Context.Reviews
+                    .Where(r => r.UserId == userId)
+                    .Where(q => q.QuizId == quizId))
+                    .ToList();
+                return reviews;
             }
             catch (SqlException ex)
             {

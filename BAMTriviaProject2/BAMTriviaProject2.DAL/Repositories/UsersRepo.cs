@@ -16,7 +16,7 @@ namespace BAMTriviaProject2.DAL.Repositories
         private readonly ILogger<UsersRepo> _logger;
         private readonly IMapper _mapper;
 
-        public static BAMTriviaProject2Context Context { get; set; }
+        public BAMTriviaProject2Context Context { get; set; }
 
         public UsersRepo(BAMTriviaProject2Context dbContext, 
             ILogger<UsersRepo> logger, IMapper mapper)
@@ -80,25 +80,6 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public UsersModel GetIdByUsername(string username)
-        {
-            try
-            {
-                UsersModel user = _mapper.Map(Context.Tusers.Single(u => u.Username == username));
-                return user;
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogError(ex.ToString());
-                return null;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-                return null;
-            }
-        }
-
         public List<UsersModel> GetAllUsers()
         {
             List<UsersModel> list = new List<UsersModel>();
@@ -108,6 +89,15 @@ namespace BAMTriviaProject2.DAL.Repositories
         public async Task<UsersModel> AddAsync(UsersModel user)
         {
             Context.Tusers.Add(_mapper.Map(user));
+            await SaveChangesAndCheckException();
+
+            return user;
+        }
+
+        public async Task<UsersModel> EditUserAsync(UsersModel user)
+        {
+            var entity = await Context.Tusers.FindAsync(user.UserId);
+            Context.Entry(entity).CurrentValues.SetValues(_mapper.Map(user));
             await SaveChangesAndCheckException();
 
             return user;

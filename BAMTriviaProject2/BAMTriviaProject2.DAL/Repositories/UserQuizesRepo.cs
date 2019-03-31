@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BAMTriviaProject2.DAL.Repositories
 {
@@ -15,7 +16,7 @@ namespace BAMTriviaProject2.DAL.Repositories
     {
 
         private readonly ILogger<UserQuizesRepo> _logger;
-        public static BAMTriviaProject2Context _db { get; set; }
+        public BAMTriviaProject2Context _db { get; set; }
         private readonly IMapper _mapper;
 
         public UserQuizesRepo(BAMTriviaProject2Context dbContext,
@@ -99,11 +100,12 @@ namespace BAMTriviaProject2.DAL.Repositories
             return await SaveChangesAndCheckException();
         }
 
-        public int GetLastUserQuizId(int userId)
+        public async Task<int> GetLastUserQuizId(int userId)
         {
             try
             {
-                return _db.UserQuizzes.Where(uq => uq.UserId == userId).Max(uq => uq.UserQuizId);
+                var userQuizzes = await _db.UserQuizzes.Where(uq => uq.UserId == userId).ToListAsync();
+                return userQuizzes.Max(uq => uq.UserQuizId);
             }
             catch (SqlException ex)
             {

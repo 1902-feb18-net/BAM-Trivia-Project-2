@@ -15,7 +15,7 @@ namespace BAMTriviaProject2.DAL.Repositories
     {
         private readonly ILogger<ReviewRepo> _logger;
         private readonly IMapper _mapper;
-        public static BAMTriviaProject2Context Context { get; set; }
+        private BAMTriviaProject2Context Context { get; set; }
 
         public ReviewRepo(BAMTriviaProject2Context dbContext,
             ILogger<ReviewRepo> logger, IMapper mapper)
@@ -123,13 +123,13 @@ namespace BAMTriviaProject2.DAL.Repositories
             }
         }
 
-        public IEnumerable<ReviewsModel> GetAllQuizReviews()
+        public List<ReviewsModel> GetAllQuizReviews()
         {
             try
             {
                 return _mapper.Map(
                     Context.Reviews
-                    .Where(r => r.QuizId != null));
+                    .Where(r => r.QuizId != null)).ToList();
             }
             catch (SqlException ex)
             {

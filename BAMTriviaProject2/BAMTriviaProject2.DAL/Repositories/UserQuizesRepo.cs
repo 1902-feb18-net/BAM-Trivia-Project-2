@@ -119,5 +119,18 @@ namespace BAMTriviaProject2.DAL.Repositories
                 return 0;
             }
         }
+
+        public async Task<UserQuizzesModel> EditUserQuizzesAsync(UserQuizzesModel userQuiz)
+        {
+            //var entity = await Context.Tusers.FindAsync(user.UserId);
+            //Context.Entry(entity).CurrentValues.SetValues(_mapper.Map(user));
+            //await SaveChangesAndCheckException();
+
+            //return user;
+            var entity = await _db.UserQuizzes.FindAsync(userQuiz.UserQuizId);
+            _db.Entry(entity).CurrentValues.SetValues(_mapper.Map(userQuiz));
+            await SaveChangesAndCheckException();
+            return userQuiz;
+        }
     }
 }

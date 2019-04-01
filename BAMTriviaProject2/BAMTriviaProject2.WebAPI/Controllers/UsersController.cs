@@ -243,6 +243,17 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return CreatedAtAction(nameof(EditUser), usersModel);
         }
 
+        [HttpPut("UserQuiz", Name = "EditUserQuizScore")]
+        public async Task<ActionResult> EditUserQuizScore(int actualScore)
+        {
+
+            UserQuizzesModel userQuiz = _userQuizzesRepo.GetLastQuiz();
+            userQuiz.QuizActualScore = actualScore;
+
+            await _userQuizzesRepo.EditUserQuizzesAsync(userQuiz);
+            return CreatedAtAction(nameof(EditUserQuizScore), userQuiz);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteUser(UsersModel usersModel,
             [FromServices] RoleManager<IdentityRole> roleManager,

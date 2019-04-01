@@ -80,19 +80,19 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             try
             {
                 //finds all quizzes in the right category and right difficulty
-                IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
-                List<QuizzesModel> quizzes2 = quizzes.ToList();
-                //gets a random quiz out of the list of available ones
-                Random random = new Random();
-                int x = random.Next(quizzes2.Count);
+                //IEnumerable<QuizzesModel> quizzes = await quizRepo.GetAllQuizesByCategoryAndDifficulty(quizzesModel.Category, quizzesModel.Difficulty);
+                //List<QuizzesModel> quizzes2 = quizzes.ToList();
+                ////gets a random quiz out of the list of available ones
+                //Random random = new Random();
+                //int x = random.Next(quizzes2.Count);
 
-                //gets the id of the quiz to use
-                int quizId = quizzes2[x].Id; //for when it's working
+                ////gets the id of the quiz to use
+                //int quizId = quizzes2[x].Id; //for when it's working
 
                 //int quizId = 1; //temporary
 
                 //finds all questions that were on that quiz
-                List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizId);
+                List<QuestionsModel> questions = quizQuestionRepo.GetQuestionsByQuizId(quizzesModel.Id);
 
                 //QuizzesModel quiz = new QuizzesModel();
                 //quiz.Id = 1;

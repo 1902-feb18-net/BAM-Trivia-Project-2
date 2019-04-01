@@ -47,7 +47,6 @@ namespace BAMTriviaProject2.WebAPI
                         "http://localhost:4200",
                         "https://bam1902trivia.azurewebsites.net"
                     })
-                        .AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();

@@ -242,7 +242,7 @@ namespace BAMTriviaProject2.WebAPI.Controllers
             return CreatedAtAction(nameof(EditUser), usersModel);
         }
 
-        [HttpPut("UserQuiz", Name = "EditUserQuizScore")]
+        [HttpPut("UserQuiz/{actualScore}", Name = "EditUserQuizScore")]
         public async Task<ActionResult> EditUserQuizScore(int actualScore)
         {
 

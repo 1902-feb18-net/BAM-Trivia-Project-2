@@ -145,6 +145,7 @@ namespace BAMTriviaProject2.DAL
 
         public UserQuizzesModel Map(UserQuizzes quizes) => new UserQuizzesModel
         {
+            UserQuizId = quizes.UserQuizId,
             UserId = quizes.UserId,
             QuizId = quizes.QuizId,
             QuizMaxScore = quizes.QuizMaxScore,

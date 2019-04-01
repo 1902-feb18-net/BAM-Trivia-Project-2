@@ -219,7 +219,6 @@ namespace BAMTriviaProject2.WebAPI.Controllers
         }
 
         [HttpGet("{id}/Quizzes", Name = "GetUserQuizByUser")]
-        //[Route("{id}/Quizzes/")]
         public async Task<List<UserQuizzesModel>> GetUserQuizzesByUser(int userID)
         {
 
